@@ -2,10 +2,23 @@
 #include <cassert>
 #include "rational.hpp"
 
+namespace implementation_details
+{
 
-void common_denominator(int* a_a, int* a_b);
+
+void common_denominator(int* a_a, int* a_b)
+{
+    int keep = *a_a;
+    *a_a *= *a_b;
+    *a_b *= keep;
+}
 
 
+}//namespace implementation_details
+
+
+namespace algebra
+{
 
 Rational::Rational(int a_num)
 : m_numerator(a_num)               
@@ -32,7 +45,7 @@ void Rational::add(Rational a_ratio)
         m_numerator *= a_ratio.m_denominator;
         a_ratio.m_numerator *= m_denominator;
         m_numerator += a_ratio.m_numerator;
-        common_denominator(&m_denominator , &a_ratio.m_denominator);
+        implementation_details::common_denominator(&m_denominator , &a_ratio.m_denominator);
         
     }
 }
@@ -42,24 +55,17 @@ void Rational::substruct(Rational a_ratio)
 {
     if(m_denominator == a_ratio.m_denominator)
     {
-        m_denominator -= a_ratio.m_denominator;
+        m_numerator  -= a_ratio.m_numerator ;
     }
     else
     {
         m_numerator  *= a_ratio.m_denominator;
         a_ratio.m_numerator  *= m_denominator;
         m_numerator  -= a_ratio.m_numerator ;
-         common_denominator(&m_denominator , &a_ratio.m_denominator);
+         implementation_details::common_denominator(&m_denominator , &a_ratio.m_denominator);
     }
 }
 
-
-void common_denominator(int* a_a, int* a_b)
-{
-    int keep = *a_a;
-    *a_a *= *a_b;
-    *a_b *= keep;
-}
 
 
 void Rational::multi(Rational a_ratio) 
@@ -116,10 +122,10 @@ void Rational::reduce()
         if(m_numerator % i == 0 && m_denominator % i == 0)
         {
             m_numerator /= i; 
-             m_denominator /= i;
+            m_denominator /= i;
         }
+        
     }
-    
 }
 
 
@@ -133,3 +139,53 @@ void Rational::reduce()
  {
      return m_denominator;
  }
+
+
+
+ Rational add(Rational a_a, Rational a_b)
+ {
+     int numerator = 0;
+     int denominator = 0;
+    if(a_a.get_denominator() == a_b.get_denominator())
+    {
+        numerator = a_a.get_numerator() + a_b.get_numerator();
+        denominator = a_a.get_denominator();
+    }
+    else
+    {
+        numerator = a_a.get_numerator() * a_b.get_denominator();
+        numerator += a_b.get_numerator() * a_a.get_denominator();
+        denominator = a_a.get_denominator() * a_b.get_denominator();
+    }
+    return Rational(numerator, denominator );
+ }
+
+ bool equal(Rational a_a, Rational a_b)
+ {
+    a_a.reduce();
+    a_b.reduce();
+    if(a_a.get_numerator() != a_b.get_numerator())
+    {
+        return false;
+    }
+    if(a_b.get_denominator() != a_a.get_denominator())
+    {
+        return false;
+    }
+    return true;
+
+ }
+
+ bool not_equal(Rational a_a, Rational a_b)
+ {
+    a_a.reduce();
+    a_b.reduce();
+    if(a_a.get_numerator() == a_b.get_denominator() && a_b.get_numerator() == a_a.get_denominator())
+    {
+        return false;
+    }
+    return true;
+
+ }
+
+}//namespace algebra

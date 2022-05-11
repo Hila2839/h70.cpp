@@ -1,6 +1,11 @@
 #ifndef RATIONAL_H
 #define RATIONAL_H
 
+
+
+namespace algebra
+{
+
 class Rational 
 {    
 public:
@@ -29,6 +34,16 @@ private:
     int m_numerator;
     int m_denominator;
 };
+ Rational add(Rational a_a, Rational a_b);
+
+
+ bool equal(Rational a_a, Rational a_b);
+
+
+ bool not_equal(Rational a_a, Rational a_b);
+
+
+}//namespace algebra
 
 
 #endif
