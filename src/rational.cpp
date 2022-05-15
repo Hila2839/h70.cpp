@@ -323,26 +323,26 @@ Rational operator-(Rational a_lhs, Rational a_rhs)
 
 
 //in class operators functions
-/*
-void Rational::operator+(Rational a_other)
+
+void Rational::operator+=(Rational a_other)
 {
     add(a_other);
 }
 
 
-void Rational::operator*(Rational a_other)
+void Rational::operator*=(Rational a_other)
 {
     multi(a_other);
 }
 
 
-void Rational::operator/(Rational a_other)
+void Rational::operator/=(Rational a_other)
 {
     divide(a_other);
 }
 
 
-void Rational::operator-(Rational a_other)
+void Rational::operator-=(Rational a_other)
 {
     substruct(a_other);
 }

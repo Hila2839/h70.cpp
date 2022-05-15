@@ -451,7 +451,7 @@ END_TEST
 BEGIN_TEST(operator_plus_test)	
 	algebra::Rational a(6, 2);
     algebra::Rational b(4, 2);
-	a + b;
+	a += b;
 
 	ASSERT_THAT(a.get_numerator() == 10);
 	ASSERT_THAT(a.get_denominator() == 2);
@@ -461,7 +461,7 @@ END_TEST
 BEGIN_TEST(operator_multi_test)	
 	algebra::Rational a(6, 2);
     algebra::Rational b(4, 2);
-	a * b;
+	a *= b;
 	ASSERT_THAT(a.get_numerator() == 24);
 	ASSERT_THAT(a.get_denominator() == 4);
 	ASSERT_THAT(b.get_numerator() == 4);
@@ -472,7 +472,7 @@ END_TEST
 BEGIN_TEST(operator_multi_negative_test)	
 	algebra::Rational a(-6, 2);
     algebra::Rational b(4, 2);
-	a * b;
+	a *= b;
 	ASSERT_THAT(a.get_numerator() == -24);
 	ASSERT_THAT(a.get_denominator() == 4);
 	
@@ -481,7 +481,7 @@ END_TEST
 BEGIN_TEST(operator_multi_negative_denum_test)	
 	algebra::Rational a(6, -2);
     algebra::Rational b(4, 2);
-	a * b;
+	a *= b;
 	ASSERT_THAT(a.get_numerator() == -24);
 	ASSERT_THAT(a.get_denominator() == 4);
 	
@@ -490,7 +490,7 @@ END_TEST
 BEGIN_TEST(operator_add_common_denom_test)	
 	 algebra::Rational a(6, 2);
      algebra::Rational b(4, 2);
-	a + b;
+	a += b;
 	ASSERT_THAT(a.get_numerator() == 10);
 	ASSERT_THAT(a.get_denominator() == 2);
 END_TEST
@@ -498,7 +498,7 @@ END_TEST
 BEGIN_TEST(operator_add_common_denom_test2)	
 	 algebra::Rational a(6, 2);
      algebra::Rational b(4, -2);
-	a + b;
+	a += b;
 	ASSERT_THAT(a.get_numerator() == 2);
 	ASSERT_THAT(a.get_denominator() == 2);
 END_TEST
@@ -507,7 +507,7 @@ END_TEST
 BEGIN_TEST(operator_add_test)	
 	 algebra::Rational a(6, 2);
      algebra::Rational b(4, 3);
-	a +b;
+	a += b;
 	ASSERT_THAT(a.get_denominator() == 6);
 	ASSERT_THAT(a.get_numerator() == 26);
 	
@@ -516,7 +516,7 @@ END_TEST
 BEGIN_TEST(operator_add_negative_test)	
 	 algebra::Rational a(-6, 2);
      algebra::Rational b(4, 3);
-	a + b;
+	a += b;
 	ASSERT_THAT(a.get_denominator() == 6);
 	ASSERT_THAT(a.get_numerator() == -10);
 	
@@ -525,7 +525,7 @@ END_TEST
 BEGIN_TEST(operator_sub_common_denom_test)	
 	 algebra::Rational a(6, 2);
      algebra::Rational b(4, 2);
-	a - b;
+	a -= b;
 	ASSERT_THAT(a.get_numerator() == 2);
 	ASSERT_THAT(a.get_denominator() == 2);
 END_TEST
@@ -534,7 +534,7 @@ END_TEST
 BEGIN_TEST(operator_sub_test)	
 	algebra::Rational a(6, 2);
     algebra::Rational b(4, 3);
-	a - b;
+	a -= b;
 	ASSERT_THAT(a.get_denominator() == 6);
 	ASSERT_THAT(a.get_numerator() == 10);
 	
@@ -543,7 +543,7 @@ END_TEST
 BEGIN_TEST(operator_sub_common_den_test)	
 	algebra::Rational a(6, 2);
     algebra::Rational b(4, 2);
-	a - b;
+	a -= b;
 	ASSERT_THAT(a.get_denominator() == 2);
 	ASSERT_THAT(a.get_numerator() == 2);
 	
@@ -552,7 +552,7 @@ END_TEST
 BEGIN_TEST(operator_sub_negative_test)	
 	algebra::Rational a(-6, 2);
     algebra::Rational b(4, 3);
-	a - b;
+	a -= b;
 	ASSERT_THAT(a.get_denominator() == 6);
 	ASSERT_THAT(a.get_numerator() == -26);
 	
@@ -573,7 +573,7 @@ END_TEST*/
 BEGIN_TEST(operator_multi_test_with_int)	
 	algebra::Rational a(6, 2);
     int b(2);
-	a * b;
+	a *= b;
 	ASSERT_THAT(a.get_numerator() == 12);
 	ASSERT_THAT(a.get_denominator() == 2);
 	
