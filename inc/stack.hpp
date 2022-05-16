@@ -1,7 +1,8 @@
 #ifndef STACK_H
 #define STACK_H 
 
-#include "rational.hpp"
+
+#include <cstddef>
 
 
 
@@ -17,7 +18,8 @@ public:
      * 
      * @param a_size 
      */
-    Stack(int a_size);
+    explicit Stack(size_t a_size);
+
 
     /**
      * @brief Construct a new Stack object
@@ -30,23 +32,22 @@ public:
      * @brief 
      * 
      */
-    void print();
+    void print() const;
     void push(int a_number);
     int pop();
     void clear();
-    int& top();
-    int get_size();
+    int& top() const;
+    int get_size() const;
     void operator+=(Stack a_other);
-    void operator<<(Stack a_other);
-    void operator>>(Stack a_other);
+    Stack& operator<<(Stack& a_other);
+    Stack& operator>>(Stack& a_other);
 
 
 
     
 private:
-    int m_size;
-    int m_items_num;
-    int magic_num;
+    size_t m_capacity;
+    size_t m_size;
     int *m_stack_array;
 };
 

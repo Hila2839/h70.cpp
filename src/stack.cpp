@@ -1,135 +1,130 @@
 #include <cstdio>
 #include <cassert>
+#include <cstdlib>
 
 #include "stack.hpp"
+#include <cstddef>
 
 
 #define MAGIC 5826
 
 
+
+namespace calc
+{
+
+size_t my_min(size_t a_lhs, size_t a_rhs)
+{
+    if(a_lhs < a_rhs)
+    {
+        return a_lhs;
+    }
+    else
+    {
+        return a_rhs;
+    }
+}
+
+}//namespace calc
+
 namespace adt
 {
 
-
-Stack::Stack(int a_size)
-: m_size(a_size)
-, m_items_num(0)
-, magic_num(MAGIC)
+//explicit
+Stack::Stack(size_t a_size)
+: m_capacity(a_size)
+, m_size(0)
 {
-    //int stack_array[a_size] = {0};
-    int stack_array[16] = {0};
-    m_stack_array = stack_array;
-    assert(m_size != 0 && "size can't be zero");  
+    m_stack_array = (static_cast<int*>(::malloc( m_capacity * sizeof(int))));
+    assert(m_stack_array && "malloc filure, need more core");  
 }
 
 Stack::Stack()
-: m_size(16) 
-, m_items_num(0)
-, magic_num(MAGIC)              
+: m_capacity(16) 
+, m_size(0)              
 {    
-    int stack_array[16] = {0};
-    m_stack_array = stack_array;
+    m_stack_array =(static_cast<int*>(::malloc( m_capacity * sizeof(int))));
+     assert(m_stack_array && "malloc filure, need more core");  
 }
 
 
 void Stack::push(int a_number)
 {
-    if(m_items_num < m_size)
-    {
-        m_stack_array[m_items_num] = a_number;
-        m_items_num++;
-    }
-    else
-    {
-        assert( "overflow");
-    }
+    assert(m_size < m_capacity && "overflow");
+    m_stack_array[m_size] = a_number;
+    m_size++;
 }
 
 int Stack::pop()
 {
-    if(m_items_num == 0)
-    {
-        assert( "underflow");
-        //return 0;
-    }
-    else
-    {
-        int deleted = m_stack_array[m_items_num];
-        m_items_num--;
-        return  deleted;
-    }
+    int t = top();
+    m_size--;
+    return t;
 }
 
 void Stack::clear()
 {
-    for (int i = 0; i < m_items_num ; i++)
-    {
-        m_stack_array[i] = 0;
-    }
+    m_size = 0;
 }
 
 
-void Stack::print()
+void Stack::print() const
 {
-    for (int i = 0; i < m_items_num ; i++)
+    printf("[");
+    for (size_t i = 0; i < m_size; i++)
     {
-        printf("%d, ", m_stack_array[i]);
+        printf("%d", m_stack_array[i]);
+        if(i < m_size - 1)
+        {
+            printf(", ");
+        }
     }
-    printf("\n ");
+    printf("]\n ");
 }
 
 
-int& Stack::top()
+int& Stack::top() const
 {
-    if(m_items_num == 0)
-    {
-         assert( "underflow");
-       
-    }
-    else
-    {
-        return m_stack_array[m_items_num - 1];
-    }
+    assert(m_size > 0 && "underflow");
+    int n = m_stack_array[m_size - 1];
+    int& r = n;
+    return r;
 }
 
-int Stack::get_size()
+int Stack::get_size() const
 {
-    return m_items_num;
+    return m_size;
 }
 
 void Stack::operator+=(Stack a_other)
 {
-    for(int i = 0; i < a_other.m_items_num; ++i)
-    {
-        int j = m_items_num;
-        m_stack_array[j] = a_other.m_stack_array[i];
-        j++;
-        m_size ++;
-    }
+    *this << a_other;//because its a copy it wont be deleted
+    //for(size_t i = 0; i < a_other.m_size; ++i)
+    //{
+    //    int j = m_size;
+    //    m_stack_array[j] = a_other.m_stack_array[i];
+    //    j++;
+    //    m_size ++;
+    //}
 }
 
-void Stack::operator<<(Stack a_other)
+Stack& Stack::operator<<(Stack& a_other)
 {
-    for(int i = 0; i < a_other.m_items_num; ++i)
+    size_t n = a_other.m_size;
+    size_t d = m_capacity - m_size;
+    size_t take = calc::my_min(d, n);
+    for(size_t i = 0; i < take; ++i)
     {
-        int j = m_items_num;
-        m_stack_array[j] = a_other.m_stack_array[i];
-        j++;
-        m_items_num ++;
+        push(a_other.pop());
     }
-    a_other.m_items_num = 0;
+    return *this;
 }
 
-void Stack::operator>>(Stack a_other)
+
+Stack& Stack::operator>>(Stack& a_other)
 {
-    for(int i = 0; i < m_items_num; ++i)
-    {
-        int j = a_other.m_items_num;
-         a_other.m_stack_array[j] = m_stack_array[i];
-        j++;
-         a_other.m_items_num ++;
-    }
-    m_items_num = 0;
+    a_other << *this;
+    return *this;
 }
 
 

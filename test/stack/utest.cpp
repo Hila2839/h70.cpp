@@ -14,7 +14,7 @@ BEGIN_TEST(print_stack_push)
     a.push(3);
     a.print();
 	
-	ASSERT_PASS();
+	ASSERT_THAT(a.get_size() == 3);
 	
 	
 END_TEST
@@ -29,7 +29,7 @@ BEGIN_TEST(print_stack_pop)
     a.pop();
     a.print();
 	
-	ASSERT_PASS();
+	ASSERT_THAT(a.get_size() == 2);
 	
 	
 END_TEST
@@ -50,15 +50,13 @@ END_TEST
 BEGIN_TEST(stack_get_top)	
     
     adt::Stack a(50);
-    a.push(1);
-    a.push(2);
-    a.push(3);
-    a.push(1);
-    a.push(7);
-    a.push(9);
+    for (size_t i = 0; i < 50; i++)
+    {
+        a.push(i);
+    }
     int b = a.top();
 	
-	ASSERT_THAT(b == 9);
+	ASSERT_THAT(b == 49);
 	
 	
 END_TEST
@@ -67,16 +65,14 @@ END_TEST
 BEGIN_TEST(print_stack_clear)	
     
     adt::Stack a(50);
-    a.push(1);
-    a.push(2);
-    a.push(3);
-    a.push(1);
-    a.push(2);
-    a.push(3);
-    a.clear();
+    for (size_t i = 0; i < 50; i++)
+    {
+        a.push(i);
+    }
+	a.clear();
     a.print();
 	
-	ASSERT_PASS();
+    ASSERT_THAT(a.get_size() == 0);
 	
 	
 END_TEST
@@ -88,19 +84,19 @@ BEGIN_TEST(add_two_stacks)
     a.push(1);
     a.push(2);
     a.push(3);
-    a.print();
 
     adt::Stack b(50);
     b.push(4);
     b.push(5);
     b.push(6);
-    a.print();
-    b.print();
+    
     a += b;
     a.print();
     b.print();
 	
-	ASSERT_PASS();
+	ASSERT_THAT(a.get_size() == 6);
+    ASSERT_THAT(b.get_size() == 3);
+    ASSERT_THAT(a.top() == 4);
 	
 	
 END_TEST
@@ -111,19 +107,19 @@ BEGIN_TEST(transfer_from_other_to_self)
     a.push(1);
     a.push(2);
     a.push(3);
-    a.print();
 
     adt::Stack b(50);
     b.push(4);
     b.push(5);
     b.push(6);
-    a.print();
-    b.print();
+   
     a << b;
     a.print();
     b.print();
 	
-	ASSERT_PASS();
+	ASSERT_THAT(a.get_size() == 6);
+    ASSERT_THAT(b.get_size() == 0);
+    ASSERT_THAT(a.top() == 4);
 	
 	
 END_TEST
@@ -135,19 +131,81 @@ BEGIN_TEST(transfer_from_self_to_other)
     a.push(1);
     a.push(2);
     a.push(3);
-    a.print();
 
     adt::Stack b(50);
     b.push(4);
     b.push(5);
     b.push(6);
-    a.print();
-    b.print();
+   
     a >> b;
     a.print();
     b.print();
 	
-	ASSERT_PASS();
+	ASSERT_THAT(a.get_size() == 0);
+    ASSERT_THAT(b.get_size() == 6);
+    ASSERT_THAT(b.top() == 1);
+	
+	
+END_TEST
+
+BEGIN_TEST(transfer_from_self_to_other_to_third)	
+    
+    adt::Stack a(50);
+    a.push(1);
+    a.push(2);
+    a.push(3);
+
+    adt::Stack b(50);
+    b.push(4);
+    b.push(5);
+    b.push(6);
+
+     adt::Stack c(50);
+    b.push(7);
+    b.push(8);
+    b.push(9);
+   
+    a >> b >> c;
+    a.print();
+    b.print();
+    c.print();
+	
+	ASSERT_THAT(a.get_size() == 0);
+    ASSERT_THAT(b.get_size() == 0);
+    ASSERT_THAT(c.get_size() == 9);
+    ASSERT_THAT(c.top() == 1);
+	
+	
+END_TEST
+
+
+BEGIN_TEST(transfer_to_self_from_other_and_from_third)	
+    
+    adt::Stack a(50);
+    a.push(1);
+    a.push(2);
+    a.push(3);
+
+    adt::Stack b(50);
+    b.push(4);
+    b.push(5);
+    b.push(6);
+
+     adt::Stack c(50);
+    b.push(7);
+    b.push(8);
+    b.push(9);
+   
+    a << b << c;
+    a.print();
+    b.print();
+    c.print();
+    
+	
+	ASSERT_THAT(a.get_size() == 9);
+    ASSERT_THAT(b.get_size() == 0);
+    ASSERT_THAT(c.get_size() == 0);
+    ASSERT_THAT(a.top() == 4);
 	
 	
 END_TEST
@@ -162,6 +220,8 @@ BEGIN_SUITE(Its what you learn after you know it all that counts)
     TEST(add_two_stacks)	
     TEST(transfer_from_other_to_self)	
     TEST(transfer_from_self_to_other)	
+    TEST(transfer_from_self_to_other_to_third)
+    TEST(transfer_to_self_from_other_and_from_third)	
     	
 
 
