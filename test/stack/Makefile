@@ -27,7 +27,10 @@ check: $(TARGET)
 
 utest : utest.cpp $(SRC_DIR)/stack.cpp $(INC_DIR)/stack.hpp 
 
+vala: $(TARGET)
+	valgrind ./$(TARGET)
+
 clean:
 	@$(RM) $(TARGET) $(OBJS)
 
-.PHONY: all check clean
+.PHONY: all check clean vala
