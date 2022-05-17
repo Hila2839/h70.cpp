@@ -28,7 +28,9 @@ check: $(TARGET)
 
 utest : utest.cpp $(SRC_DIR)/gray_image.cpp $(INC_DIR)/gray_image.hpp
 
+vala: $(TARGET)
+	valgrind --leak-check=yes --track-origins=yes ./$(TARGET)
 clean:
 	@$(RM) $(TARGET) $(OBJS)
 
-.PHONY: all check clean
+.PHONY: all check clean vala
