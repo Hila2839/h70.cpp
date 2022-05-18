@@ -3,6 +3,8 @@
 
 
 #include <cstddef>
+#include <ostream>
+#include <iostream>
 
 
 
@@ -41,12 +43,8 @@ public:
     GrayImage operator~() const;
     int& at (int a_row, int a_column);
     int& operator() (int a_row, int a_column);
-    struct Point
-    {
-        int row;
-        int column;
-    };
-    int& operator[] (Point a_row);
+    int* operator[] (int a_row) ;
+
 
 
     
@@ -76,6 +74,13 @@ void write_to_file(GrayImage a_image, const char* a_file_name);
 
 GrayImage read_from_file(const char* a_file_name);
 
+GrayImage rotate90(GrayImage& a_image);
+
+std::ostream& operator<<(std::ostream& a_os, GrayImage& a_img);
+
+GrayImage scale_down(GrayImage& a_image, int a_part);
+
+GrayImage drow_line(GrayImage&  a_image, int a_x0 , int a_x1, int a_y0, int a_y1, int a_color);
 
 }//namespace gfx
 

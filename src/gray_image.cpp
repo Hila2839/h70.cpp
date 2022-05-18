@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <cstring>
+#include <iostream>
 
 
 #include "gray_image.hpp"
@@ -403,9 +404,91 @@ int& GrayImage::operator() (int a_row, int a_column)
 }
 
 
-int& GrayImage::operator[] (Point a_row) 
+int* GrayImage::operator[] (int a_row) 
 {
-    return m_array[a_row.row * m_columns + a_row.column];
+    
+    return &m_array[a_row * m_columns];
 }
+
+
+GrayImage rotate90(GrayImage& a_image)
+{
+    GrayImage result(a_image.get_width(), a_image.get_hight(), a_image.get_range());
+
+    for (int i = 0; i < a_image.get_width(); i++)
+    {
+        for (int j =  0 ; j < a_image.get_hight(); ++j)
+        {
+            result.set_pixle(j, a_image.get_width() - i, a_image.get_pixle(i, j));
+        }  
+    }
+    return result;
+}
+
+std::ostream& operator<<(std::ostream& a_os, GrayImage& a_img)
+{
+    a_os <<"P2\n" << a_img.get_width() << " " << a_img.get_hight() << '\n' << a_img.get_range() << '\n';
+
+    for (int i = 0; i < a_img.get_hight(); i++)
+    {
+        for (int j =  0 ; j < a_img.get_width(); ++j)
+        {
+            a_os << a_img.get_pixle(i, j) << ' ';
+        }  
+        a_os << '\n';
+    }
+    return a_os;
+}
+
+int avg_pixle (GrayImage& a_image, int a_part, int a_row, int a_column)
+{ 
+    int sum = 0;
+    int count = 0;
+    for (int i = 0; i < a_image.get_width() / a_part ; i++)
+    {
+       for (int j = 0; j <  a_image.get_hight() / a_part; j++)
+        {
+            sum += a_image.get_pixle(i, j);
+            count++;
+        }
+    }
+    return sum / count;
+}
+    
+
+GrayImage scale_down(GrayImage& a_image, int a_part)
+{
+    GrayImage result(a_image.get_width() / 2, a_image.get_hight() / 2, a_image.get_range());
+
+    int jump_square_row = a_image.get_width() / a_part;
+    int jump_square_column = a_image.get_hight() / a_part;
+     
+    for (int i = 0; i < a_image.get_width(); i+= jump_square_row)
+    {
+        for (int j =  0 ; j < a_image.get_hight(); j += jump_square_column)
+        {
+            result.set_pixle(i, j, avg_pixle (a_image,a_part,i ,j));
+        }  
+    }
+    return result;
+}
+
+
+GrayImage drow_line(GrayImage&  a_image, int a_x0 , int a_x1, int a_y0, int a_y1, int a_color)
+{
+    GrayImage result = a_image;
+    int m = (a_y0 - a_y1) / (a_x0 - a_x1);
+    int n = -(m * a_x0) + a_y0;
+
+    for (int y = a_y0 ; y < a_y1; y++)
+    {
+        result.set_pixle(y, (y - n) / m , a_color);
+    }
+    return result;
+}
+
+
+
+
 
 }//namespace gfx

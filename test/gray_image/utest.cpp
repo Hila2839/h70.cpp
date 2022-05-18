@@ -1,6 +1,9 @@
+#include <iostream>
+#include <fstream>
 #include "mu_test.h"
 
 #include "gray_image.hpp"
+
 
 
 
@@ -325,6 +328,37 @@ BEGIN_TEST(write_image_to_file)
 END_TEST
 
 
+BEGIN_TEST(operator_write_image_to_file)	
+    
+    gfx::GrayImage a(10, 10, 200);
+    for (int i = 0; i < a.get_width(); ++i)
+    {
+        for (int j = 0; j < a.get_hight(); ++j)
+        {
+             a.set_pixle(i, j, i );
+        }
+    }
+    a.print();
+    std::cout << "operator\n" << a;
+
+	{
+        std::ofstream file;
+        file.open("./operator.pgm");
+        file << a;
+        file.close();
+    }
+    //{
+     //   std::ifstream file("./operator.pgm");
+     //   file >> a;
+    //}
+    
+
+	ASSERT_PASS();
+    
+	
+END_TEST
+
+
 BEGIN_TEST(read_image_from_file)	
     
     gfx::GrayImage a(100, 100, 200) ;
@@ -397,23 +431,85 @@ BEGIN_TEST(operator_parenthesis)
 	
 END_TEST
 
- 
-/*BEGIN_TEST(squerd_parenthesis)
+BEGIN_TEST(squerd_parenthesis)
 
     gfx::GrayImage a(5, 4, 100);
     a.set_pixle(2, 3, 99);
     a.set_pixle(0, 0, 12);
-    a.set_pixle(3, 3, 8);
+    a.set_pixle(3, 3, 3);
 
-    gfx::GrayImage::Point b = {2, 3};
-    a[b] = 100;
+    
+    a[2][3] = 8;
     
 	a.print();
   
 
-	ASSERT_THAT(a.get_pixle(2, 3) == 100);
+	ASSERT_THAT(a.get_pixle(2, 3) == 8);
+    END_TEST
 
-*/
+
+
+    BEGIN_TEST(rotate_90)	
+    
+    gfx::GrayImage b = gfx::read_from_file("test2.pgm");
+    gfx::GrayImage c = rotate90(b);
+	
+     write_to_file(c, "rotated.pgm");
+    
+
+    ASSERT_THAT(b.get_pixle(0, 100) == 1);
+	ASSERT_THAT(c.get_pixle(0, 100) == 0);
+    	
+END_TEST
+
+
+
+BEGIN_TEST(scale_down)	
+    
+  gfx::GrayImage a(10, 10, 200);
+    for (int i = 0; i < a.get_width(); ++i)
+    {
+        for (int j = 0; j < a.get_hight(); ++j)
+        {
+             a.set_pixle(i, j, i );
+        }
+    }
+    a.print();
+    gfx::GrayImage b = scale_down(a, 2);
+    printf("%d\n", b.get_pixle(25, 25));
+    b.print();
+	
+    ASSERT_THAT(b.get_width() == 5);
+	ASSERT_THAT(b.get_hight() == 5);
+    ASSERT_THAT(b.get_pixle(1, 0) == 2);
+    	
+END_TEST
+
+
+
+BEGIN_TEST(drow_line)	
+    
+  gfx::GrayImage a(10, 10, 200);
+    for (int i = 0; i < a.get_width(); ++i)
+    {
+        for (int j = 0; j < a.get_hight(); ++j)
+        {
+             a.set_pixle(i, j, i );
+        }
+    }
+    a.print();
+    gfx::GrayImage b = drow_line(a, 2, 0, 2, 9, 1);
+    printf("\n");
+    b.print();
+	
+    ASSERT_THAT(b.get_width() == 5);
+	ASSERT_THAT(b.get_hight() == 5);
+    ASSERT_THAT(b.get_pixle(1, 0) == 2);
+    	
+END_TEST
+
+
+
     BEGIN_SUITE(Its what you learn after you know it all that counts)
     	
     	TEST(print_image_push)
@@ -440,7 +536,10 @@ END_TEST
         TEST(opposite_image)
         TEST(at_function)
         TEST(operator_parenthesis)
-       // TEST(squerd_parenthesis)
-
+        TEST(squerd_parenthesis)
+        TEST(rotate_90)
+        TEST(operator_write_image_to_file)
+        TEST(scale_down)
+        TEST(drow_line)
 
 END_SUITE
