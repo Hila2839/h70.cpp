@@ -24,12 +24,14 @@ BEGIN_TEST(append_a_list_test)
     a.print();
   
     ASSERT_THAT(a.get_size() == 8);
-    ASSERT_THAT(a.back()->get_value() == 6);
-    ASSERT_THAT(a.front()->get_value() == 1);
+    ASSERT_THAT(a.back_value() == 6);
+    ASSERT_THAT(a.front_value() == 1);
     
 
-    
+ 
 END_TEST
+
+
 
 BEGIN_TEST(append_test)	
 
@@ -43,8 +45,8 @@ BEGIN_TEST(append_test)
   
 
     ASSERT_THAT(a.get_size() == 4);
-    ASSERT_THAT(a.back()->get_value() == 4);
-    ASSERT_THAT(a.front()->get_value() == 1);
+    ASSERT_THAT(a.back_value() == 4);
+    ASSERT_THAT(a.front_value() == 1);
     
 
     
@@ -63,8 +65,8 @@ BEGIN_TEST(append_char_test)
   
 
     ASSERT_THAT(a.get_size() == 4);
-    ASSERT_THAT(a.back()->get_value() == 'a');
-    ASSERT_THAT(a.front()->get_value() == 'H');
+    ASSERT_THAT(a.back_value() == 'a');
+    ASSERT_THAT(a.front_value() == 'H');
     
 
     
@@ -84,10 +86,13 @@ BEGIN_TEST(preppend_test)
   
 
     ASSERT_THAT(a.get_size() == 4);
-    ASSERT_THAT(a.back()->get_value() == 1);
-    ASSERT_THAT(a.front()->get_value() == 4);
+    ASSERT_THAT(a.back_value() == 1);
+    ASSERT_THAT(a.front_value() == 4);
     	
 END_TEST
+
+
+
 
 BEGIN_TEST(remove_head_test)	
 
@@ -102,8 +107,8 @@ BEGIN_TEST(remove_head_test)
   
 
     ASSERT_THAT(a.get_size() == 3);
-    ASSERT_THAT(a.back()->get_value() == 4);
-    ASSERT_THAT(a.front()->get_value() == 2);
+    ASSERT_THAT(a.back_value() == 4);
+    ASSERT_THAT(a.front_value() == 2);
 
     	
 END_TEST
@@ -120,28 +125,28 @@ BEGIN_TEST(remove_back_test)
 
   
     ASSERT_THAT(a.get_size() == 3);
-    ASSERT_THAT(a.back()->get_value() == 3);
-    ASSERT_THAT(a.front()->get_value() == 1);
+    ASSERT_THAT(a.back_value() == 3);
+    ASSERT_THAT(a.front_value() == 1);
 
     	
 END_TEST
 
 
-/*BEGIN_TEST(operator_append)	
+BEGIN_TEST(operator_append)	
 
    adt::List<int> a;
    int x = 1;
-   a << x ;
+   a << x <<2 << 5;
 
     a.print();
 
   
-    ASSERT_THAT(a.get_size() == 4);
-    ASSERT_THAT(a.back()->get_value() == 4);
-    ASSERT_THAT(a.front()->get_value() == 1);
+    ASSERT_THAT(a.get_size() == 3);
+    ASSERT_THAT(a.back_value() == 5);
+    ASSERT_THAT(a.front_value() == 1);
 
-    	
-END_TEST*/
+    
+END_TEST
 
 
 BEGIN_TEST(equal_test_true)	
@@ -258,6 +263,10 @@ BEGIN_TEST(not_equal_test_false)
    
     	
 END_TEST
+
+
+
+
 
 BEGIN_TEST(is_bigger_test_true)	
 
@@ -521,14 +530,14 @@ BEGIN_TEST(reverse_test)
    }
    
     a.print();
-    a.reverse(a.front());
+   // a.reverse();
     a.print();
     
 
   
     ASSERT_THAT(a.get_size() == 20);
-    //ASSERT_THAT(a.back()->get_value() == 1);
-    //ASSERT_THAT(a.front()->get_value() == 19);
+    //ASSERT_THAT(a.back_value() == 1);
+    //ASSERT_THAT(a.front_value() == 19);
 
    
     	
@@ -548,7 +557,7 @@ END_TEST
         TEST(preppend_test)
         TEST(remove_head_test)
         TEST(remove_back_test)
-        //TEST(operator_append)
+        TEST(operator_append)
         TEST(equal_test_true)
         TEST(equal_test_false)
         TEST(not_equal_test_true)	
@@ -561,7 +570,7 @@ END_TEST
         TEST(is_smaller_test_false)
         TEST(is_smaller_or_equal_test_true)	
         TEST(is_smaller_or_equal_test_false)
-        TEST(reverse_test)	
+        //TEST(reverse_test)	
 
 
 END_SUITE
