@@ -3,70 +3,155 @@
 
 #include <cstddef>
 #include <iostream>
+#include <cassert>
+#include <algorithm>
 
 namespace adt
 {
 
 template<typename T>
 class List{
-public:    
+public:
+
     List();
    
     int get_size() const;
+
+
     T const& front_value() const;
     T const& back_value() const;
-    T const& front_value() ;
-    T const& back_value() ;
+
+    T& front_value() ;
+    T& back_value() ;
+
+
     void preppend(T const& a_value);
     void preppend(List<T> const& a_list);
+
     void append(T const& a_value);
     void append(List<T> const& a_list); 
+
+
     T remove_front();
     T remove_back();
+
+
     void print() const;
+
+
     T get_next_value(T const& a_node) const ;
+
+
     List<T>& operator<<( T const& a_value);
+
     bool operator==(List<T> const& a_other_list) const;
+
     bool operator>(List<T> const& a_other_list) const;
-    //Node* reverse();
-    
+
+    List<T>& reverse();
+
+
+    void for_each_c(void (*action)(T& a_value, void* a_context), void* a_context);
+
+
+    class Itr;
+    class ConstItr;
+
+    const  ConstItr begin() const;
+    const  ConstItr end() const;
+
+    Itr begin();
+    Itr end();
+
 
     T get_value() const;
-private:
 
+private:
+   
 //class node
 class Node
 {
 public:
+
     Node();
+
     T& get_value();
-    //T* get_next_value(Node* a_node) const;
+
     void set_value(T a_value);
+
     void set_next_value(T* a_value) ;
+
     Node* get_next() const;
+
     void set_next(Node* a_node) ;
-    //Node* reverse(Node* a_head );
+
+    Node* reverse(Node* a_head );
 
 
  
 private:
+
     T m_value;
     Node* m_next;
-
 
 };
 
 // list members
+
     Node* m_head;
     Node* m_tail;
     size_t m_size;
 
 
 //private functions
+
 Node* front() const;
 Node* back() const;
+Node* reverse(Node* a_head);
+
 
 };
+
+//class iterator
+
+template<typename T>
+class List<T>::Itr
+{
+public:
+    Itr(Node* m_current);
+
+    Itr& operator++();
+    const T& operator*();
+     
+
+    bool operator==(Itr const& a_itr) const;
+    bool operator!=(Itr const& a_itr) const;
+
+
+private:
+    Node* m_current;
+
+};
+
+template<typename T>
+class List<T>::ConstItr
+{
+public:
+    ConstItr(const Node* m_current);
+
+    ConstItr const& operator++() const;
+    const T& operator*() const;
+
+    const bool operator==(Itr const& a_itr) const;
+    const bool operator!=(Itr const& a_itr) const;
+
+    
+
+private:
+    Node* m_current;
+
+};
+
 
 
 //Node constructor
@@ -128,7 +213,7 @@ typename List<T>::Node* List<T>::Node::get_next() const
 template<typename T>
 typename List<T>::Node* List<T>::front() const
 {
-    //assert(m_size > 0 && "empty list"); 
+    assert(m_size > 0 && "empty list"); 
     return m_head;
 }
 
@@ -136,13 +221,14 @@ typename List<T>::Node* List<T>::front() const
 template<typename T>
 typename List<T>::Node* List<T>::back() const
 {
-    //assert(m_size > 0 && "empty list"); 
+    assert(m_size > 0 && "empty list"); 
     return m_tail;
 }
 
 template<typename T>
 T const& List<T>::front_value() const
 {
+    assert(m_size > 0 && "empty list"); 
     return m_head.get_value();
 }
 
@@ -150,19 +236,22 @@ T const& List<T>::front_value() const
 template<typename T>
 T const& List<T>::back_value() const
 {
+    assert(m_size > 0 && "empty list"); 
     return m_tail.get_value();
 }
 
 template<typename T>
-T const& List<T>::front_value() 
+T& List<T>::front_value() 
 {
+    assert(m_size > 0 && "empty list"); 
     return m_head->get_value();;
 }
 
 
 template<typename T>
-T const& List<T>::back_value() 
+T& List<T>::back_value() 
 {
+    assert(m_size > 0 && "empty list"); 
     return m_tail->get_value();;
 }
 
@@ -198,15 +287,35 @@ void List<T>::preppend(T const& a_value) //not const because of m_size++
 template<typename T>
 void List<T>::preppend(List<T> const& a_list)
 {
-    Node* head = a_list.front();
+    List<T> copy;
+    copy.append(a_list);
+
+    copy.reverse();
+
+    Node* head = copy.front();
+
     while(head->get_next() != 0)
     {
         preppend(head->get_value());
         head = head->get_next();
     }
-    preppend(head->get_value()); 
-
+    preppend(head->get_value());
 }
+
+
+/*
+    Node* tail = a_list.back();
+    for (size_t i = 0; i < a_list.m_size; i++)
+    {
+        Node* look_for_new_tail = a_list.front();
+        preppend(tail->get_value());
+        while(look_for_new_tail->get_next() != 0)
+        {
+            look_for_new_tail = look_for_new_tail->get_next();
+        }
+        tail = look_for_new_tail;
+    }
+}*/
 
 //add option to get list
 template<typename T>
@@ -311,7 +420,7 @@ void List<T>::print() const
     Node* temp = m_head;
     for (size_t i = 0; i < m_size; i++)
     {
-        printf("%d",temp->get_value());
+        std::cout << temp->get_value();
          temp = temp->get_next();
     }
     std::cout << "\n";
@@ -413,17 +522,28 @@ bool operator<=(List<T> const& a_list, List<T> const& a_other_list)
     }
     return a_list < a_other_list;
 }
-/*
+
 
 template<typename T>
-typename List<T>::Node* List<T>::Node::reverse(List<T>::Node* a_head )
+List<T>& List<T>::reverse()
 {
-    Node* temp_head;
+    m_tail = m_head;
+    Node* temp_head = front();
+    m_head = reverse(temp_head);
+    return *this;
+}
+
+
+template<typename T>
+typename List<T>::Node*  List<T>::reverse(List<T>::Node* a_head)
+{
+    Node* temp_head = a_head;
     if(a_head->get_next() == 0)
     {
         return a_head;
     }
     temp_head = reverse(a_head->get_next());
+ 
     (a_head->get_next())->set_next(a_head);
     a_head->set_next(0);
     return temp_head;
@@ -431,23 +551,151 @@ typename List<T>::Node* List<T>::Node::reverse(List<T>::Node* a_head )
 
 
 template<typename T>
-typename List<T>::Node*  List<T>::reverse()
+void List<T>::for_each_c(void (*action)(T& a_value, void* a_context), void* a_context)
 {
-    Node* temp_head = front();
-    if(temp_head->get_next() == 0)
+    Node* current = m_head;
+    while(current != 0)
     {
-        return front();
+        action(current->get_value(), a_context);
+        current = current->get_next();
     }
-    temp_head = reverse(temp_head->get_next());
-    (temp_head->get_next())->set_next(temp_head);
-    temp_head->set_next(0);
-    return temp_head;
 }
 
+/*
+for_each(begin(), end(), *)
+{
+
+}
 
 */
 
+//iterator and const iterator constructor
+template<typename T>
+ List<T>::Itr::Itr(Node* m_current)
+: m_current(m_head)//front
+{
+}
 
+template<typename T>
+ List<T>::ConstItr::ConstItr(const Node* m_current)
+: m_current(m_head)//front
+{
+}
+
+
+
+template<typename T>
+typename List<T>::Itr& List<T>::Itr::operator++()
+ {
+     m_current = m_current.get_next();
+     return *this;
+ }
+
+
+
+template<typename T>
+typename List<T>::ConstItr const& List<T>::ConstItr::operator++() const
+ {
+     m_current = m_current.get_next();
+     return *this;
+ }
+
+
+template<typename T>
+const T& List<T>::Itr::operator*()
+{
+    return m_current.get_value();
+}
+
+template<typename T>
+ const T& List<T>::ConstItr::operator*() const
+{
+    return m_current.get_value();
+}
+
+template<typename T> 
+typename List<T>::Itr List<T>::begin()
+{
+    Itr itr(front);
+    return itr;
+}
+
+
+
+template<typename T> 
+ const typename List<T>::ConstItr List<T>::begin() const
+{
+    ConstItr itr(front);
+    return itr;
+}
+
+
+template<typename T> 
+typename List<T>::Itr List<T>::end()
+{
+    Node* tail_node = back();
+    m_tail->set_next(tail_node);
+
+    tail_node->set_next(tail_node);
+    tail_node->set_value(0);
+
+    return tail_node;
+}
+
+
+
+template<typename T> 
+ const typename List<T>::ConstItr List<T>::end() const
+{
+    
+    Node* tail_node = back();
+    m_tail->set_next(tail_node);
+
+    tail_node->set_next(tail_node);
+    tail_node->set_value(0);
+
+    return tail_node;
+}
+
+template<typename T> 
+bool List<T>::Itr::operator==(Itr const& a_itr) const
+{
+    if(get_value() == a_itr.get_value())
+    {
+        return true;
+    }
+    return false;
+}
+
+ template<typename T> 
+ const bool List<T>::ConstItr::operator==(Itr const& a_itr) const
+ {
+     if(get_value() == a_itr.get_value())
+    {
+        return true;
+    }
+    return false;
+ }
+
+template<typename T> 
+bool List<T>::Itr::operator!=(Itr const& a_itr) const
+{
+    if(get_value() != a_itr.get_value())
+    {
+        return true;
+    }
+    return false;
+}
+
+ template<typename T> 
+ const bool List<T>::ConstItr::operator!=(Itr const& a_itr) const
+ {
+     if(get_value() != a_itr.get_value())
+    {
+        return true;
+    }
+    return false;
+ }
 
 
 

@@ -91,7 +91,33 @@ BEGIN_TEST(preppend_test)
     	
 END_TEST
 
+BEGIN_TEST(preppend_a_list_test)	
 
+    adt::List<int> a;
+    a.append(1);
+    a.append(2);
+    a.append(3);
+    a.append(4);
+
+    adt::List<int> b;
+    b.append(1);
+    b.append(2);
+    b.append(3);
+    b.append(6);
+    
+    a.print();
+    b.print();
+   
+    a.preppend(b);
+    a.print();
+  
+    ASSERT_THAT(a.get_size() == 8);
+    ASSERT_THAT(a.back_value() == 4);
+    ASSERT_THAT(a.front_value() == 1);
+    
+
+ 
+END_TEST
 
 
 BEGIN_TEST(remove_head_test)	
@@ -530,23 +556,44 @@ BEGIN_TEST(reverse_test)
    }
    
     a.print();
-   // a.reverse();
+    a.reverse();
     a.print();
     
 
   
     ASSERT_THAT(a.get_size() == 20);
-    //ASSERT_THAT(a.back_value() == 1);
-    //ASSERT_THAT(a.front_value() == 19);
+    std::cout<<a.back_value()<<'\n';
+    std::cout<<a.front_value();
+    ASSERT_THAT(a.back_value() == 0);
+    ASSERT_THAT(a.front_value() == 19);
 
    
     	
 END_TEST
 
 
+/*
+BEGIN_TEST(cpp_fo_each_test)	
 
+   adt::List<int> a;
+   for (size_t i = 0; i < 20; i++)
+   {
+       a.append(i);
+   }
+   
+    a.print();
+    a.reverse();
+    a.print();
+    
+    std::for_each(a.begin(), a.end(), (-1));
+  
+   ASSERT_PASS();
 
+   
+    	
+END_TEST
 
+*/
 
 
     BEGIN_SUITE(Its what you learn after you know it all that counts)
@@ -555,6 +602,7 @@ END_TEST
         TEST(append_test)	
         TEST(append_char_test)
         TEST(preppend_test)
+        TEST(preppend_a_list_test)
         TEST(remove_head_test)
         TEST(remove_back_test)
         TEST(operator_append)
@@ -570,7 +618,8 @@ END_TEST
         TEST(is_smaller_test_false)
         TEST(is_smaller_or_equal_test_true)	
         TEST(is_smaller_or_equal_test_false)
-        //TEST(reverse_test)	
+        TEST(reverse_test)	
+        //TEST(cpp_fo_each_test)
 
 
 END_SUITE
