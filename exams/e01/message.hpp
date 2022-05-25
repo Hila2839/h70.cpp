@@ -22,7 +22,7 @@ public:
      * @param a_size 
      * @return int - to check errors: <0 = send failed
      */
-    int send_massage(char &a_data,int const a_size); 
+    int send_massage(char& a_data, int const a_size); 
 
      /**
       * @brief recieve a massage from server
@@ -42,36 +42,31 @@ public:
 private:
 
     int m_sock;
-}
+};
 
 
-struct Massage
-{
-    enum Tag{};//option for different kinds of massages
-//members
-    int m_id;
-    double m_speed;
-    double m_altitude;
+
 
 //functions
 
     /**
      * @brief packing the struct in order to send it to server
      * 
-     * @param a_buffer with packed massage
+     * @param a_buffer to pack massage to
+     * @param  a_msg -a massage to send
      * @return size_t - the packed massage size
      */
-    size_t massage_pack(char* a_buffer);
+    size_t massage_pack(Massage::Massage const& a_msg, char* a_buffer) const;
 
     /**
      * @brief unpack the reply from the server
      * 
      * @param a_buffer to get the massage to
+     * @param  a_msg -a massage to recievr information to
      * @return size_t - the massage size
      */
-    size_t massage_unpack(char* a_buffer );
+    size_t massage_unpack(Massage const& a_msg, char* a_buffer );
 
-}
 
 
 

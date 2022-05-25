@@ -1,6 +1,6 @@
 #include <cassert>
 
-#include <message.hpp>
+#include "message.hpp"
 
 #define ID_SIZE 9
 
@@ -23,7 +23,7 @@ struct Massage
 }
 
 
-size_t massage_pack(Massage const& a_msg, char* a_buffer) const
+size_t massage_pack(Massage::Massage const& a_msg, char& a_buffer) const
 {
     char *packageRunner = NULL;
     char id_size = ID_SIZE;
@@ -42,7 +42,7 @@ size_t massage_pack(Massage const& a_msg, char* a_buffer) const
     strcpy(packageRunner, a_msg.m_id);
 
     packageRunner += ID_SIZE;
-    *packageRunner  = a_msg.m_speed
+    *packageRunner  = a_msg.m_speed;
 
     packageRunner ++;
     *packageRunner =  a_msg.m_altitude;
@@ -53,11 +53,11 @@ size_t massage_pack(Massage const& a_msg, char* a_buffer) const
 
 
 
-void Massage::send_massage() const
+void Massage::send_massage(int a_port, int a_adress) const
 {
-    char buffer[254] = {0};
+    Socket sock(a_port, a_adress);
 
-    Socket sock(PORT, ADRESS);
+    char buffer[254] = {0};
 
     int size = massage_pack(buffer);
 
