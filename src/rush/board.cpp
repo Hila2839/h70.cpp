@@ -11,6 +11,82 @@
 namespace dis
 {
 
+Board::Board(char* a_file_name)
+{
+    std::ifstream file_name(a_file_name);
+   assert(file_name.is_open() && "failed to open a new file");
+
+   size_t rows = 0, columns = 0;
+
+   file_name >> rows >> columns;
+
+    m_rows = rows;
+    m_columns = columns;
+    m_board_size = m_rows * m_columns;
+     m_vector =  new std::vector<char>[1];
+     m_exit_index = 27;
+
+    char ch;
+    for (size_t i = 0; i < m_board_size; ++i)
+    {
+            file_name >> ch;
+            m_vector->push_back(ch);
+           
+    }
+    
+    char name;
+    size_t direction;
+    size_t length;
+    size_t index;
+  
+    file_name >> name;
+    file_name >> direction;
+    file_name >> length;
+    file_name >> index;
+
+    m_white = act::Car (name, direction, length, index);
+
+    file_name >> name;
+    file_name >> direction;
+    file_name >> length;
+    file_name >> index;
+
+    m_yellow = act::Car(name, direction, length, index);
+
+    file_name >> name;
+    file_name >> direction;
+    file_name >> length;
+    file_name >> index;
+    m_brown  = act::Car(name, direction, length, index);
+
+    file_name >> name;
+    file_name >> direction;
+    file_name >> length;
+    file_name >> index;
+    m_red  = act::Car(name, direction, length, index);
+
+    file_name >> name;
+    file_name >> direction;
+    file_name >> length;
+    file_name >> index;
+    m_green  = act::Car(name, direction, length, index);
+
+    file_name >> name;
+    file_name >> direction;
+    file_name >> length;
+    file_name >> index;
+    m_orange  = act::Car(name, direction, length, index);
+
+
+    file_name.close();
+}
+
+Board::Board()
+{
+}
+
+
+
 void Board::print_board()
 {
     std::cout<<m_rows<<'\n';
@@ -29,24 +105,6 @@ void Board::print_board()
     std::cout << "___________________________________________"<<'\n';
     
 }
-
-
-Board::Board(size_t a_rows, size_t a_columns)
-: m_rows(a_rows)
-, m_columns(a_columns)
-, m_board_size(m_rows * m_columns)
-, m_red(2, 1, 'r')
-, m_yellow(2, 0, 'y')
-, m_white(2, 1, 'w')
-, m_orange(2, 1, 'o')
-, m_brown(2, 0, 'b')
-, m_green(2, 1, 'g')
-{
-    m_vector =  new std::vector<char>[1];
-    m_exit_index = 27;
-}
-
-
 
 void Board::set_rows_and_columns(size_t a_rows, size_t a_columns)
 {
@@ -88,28 +146,6 @@ void Board::set_vector(std::vector<char>* a_vector)
 size_t Board::get_exit_index() const
 {
     return m_exit_index;
-}
-
-
-Board read_level_from_file(const char* a_file_name)
-{
-   std::ifstream file_name(a_file_name);
-   assert(file_name.is_open() && "failed to open a new file");
-
-   int rows = 0, columns = 0;
-
-   file_name >> rows >> columns;
-
-    Board from_file(rows, columns);
-
-    char ch;
-    for (size_t i = 0; i < from_file.get_board_size(); ++i)
-    {
-            file_name >> ch;
-            from_file.get_vector()->push_back(ch);
-    }
-    file_name.close();
-    return from_file;
 }
 
 

@@ -1,16 +1,19 @@
 #include <vector>
+#include <iostream>
+#include <cassert>
+#include <fstream>
 
 #include "game.hpp"
 #include "car.hpp"
 #include "game.hpp"
 
 
-int main()
+int main(int argc, char* argv[])
 {
     play::Game new_game;
-
-    char file_name[] = "level 1";
-    new_game.play_game(file_name);
+    
+    
+    new_game.play_game(argv[1]);
 
     return 0;
 }

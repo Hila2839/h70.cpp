@@ -24,7 +24,7 @@ public:
      * @param a_name 
      * @param a_location 
      */
-    Car(size_t a_length, bool a_direction, char a_name, size_t a_location);
+    Car(char a_name,  size_t a_direction, size_t a_length, size_t a_location);
     
     /**
      * @brief Construct a new Car object
@@ -35,6 +35,12 @@ public:
      */
     Car(size_t a_length, bool a_direction, char a_name);
 
+    /**
+     * @brief Construct a new Car object
+     * 
+     */
+    Car();
+
 
     /**
      * @brief Set the location object
@@ -42,6 +48,10 @@ public:
      * @param a_location 
      */
     void set_location(size_t a_location);
+
+    void set_car(size_t a_length, size_t a_direction, char a_name, size_t a_location);
+
+
 
     /**
      * @brief Get the location object

@@ -5,7 +5,7 @@
 namespace act
 {
 
-Car::Car(size_t a_length, bool a_direction, char a_name, size_t a_location)
+Car::Car(char a_name,  size_t a_direction, size_t a_length, size_t a_location)
 : m_length(a_length)
 , m_direction(a_direction)
 , m_name(a_name)
@@ -21,11 +21,34 @@ Car::Car(size_t a_length, bool a_direction, char a_name)
 {
 }
 
+Car::Car()
+: m_length(0)
+, m_direction(0)
+, m_name('0')
+{
+}
+
 void Car::set_location(size_t a_location)
 {
     m_location = a_location;
 }
+/*
+void Car::set_direction(size_t a_direction)
+{
+    m_direction = a_direction;
+}
 
+void Car::set_length(size_t a_length)
+{
+    m_length = a_length;
+}
+
+void Car::set_name(char a_name)
+{
+    m_name = a_name;
+}
+
+*/
 size_t Car::get_location()
 {
     return m_location;

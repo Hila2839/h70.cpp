@@ -16,6 +16,29 @@ class Board
 public:
 
     friend class Game;
+    /**
+     * @brief Construct a new Board object
+     * 
+     * @param a_rows 
+     * @param a_columns 
+     * @param a_red 
+     */
+    Board(size_t a_rows, size_t a_columns, act::Car a_red);
+
+    /**
+     * @brief Construct a new Board object
+     * 
+     */
+    Board();
+
+    /**
+     * @brief Construct a new Board object
+     * 
+     * @param a_file_name 
+     */
+    Board(char* a_file_name);
+
+
 
     /**
      * @brief Construct a new Board object
@@ -23,7 +46,7 @@ public:
      * @param a_rows 
      * @param a_columns 
      */
-    Board(size_t a_rows, size_t a_columns); 
+    //Board(size_t a_rows, size_t a_columns); 
 
     /**
      * @brief Get the rows object
@@ -148,14 +171,6 @@ private:
 };
 
 
-//global functions
-/**
- * @brief read the current level from a file
- * 
- * @param a_file_name 
- * @return Board 
- */
-Board read_level_from_file(const char* a_file_name);
 
 }//namespace dis
 

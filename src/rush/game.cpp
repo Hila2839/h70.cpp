@@ -11,8 +11,13 @@ namespace play
 {
 
 //constructor
+//Game::Game()
+//: m_board(7, 7)
+//{
+//}
+
 Game::Game()
-: m_board(7, 7)
+: m_board()
 {
 }
 
@@ -53,11 +58,13 @@ void Game::end_game()
 
 
 //game functions
-void Game::play_game(char* a_file_name)
+void Game::play_game( char* a_file_name)
 {
-    set_board(dis::read_level_from_file(a_file_name));
+    //set_board(dis::read_level_from_file(a_file_name));
 
-    m_board.prepare_board();
+    //m_board.prepare_board();
+
+    m_board = dis::Board( a_file_name);
 
     play::Game::disply_board(m_board);
     while (true)
