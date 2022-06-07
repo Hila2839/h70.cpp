@@ -10,8 +10,8 @@
 
 class LowerCase: public TextTransformer{
 public:
-    LowerCase(std::string a_string);
-    std::string incoding();
+   // LowerCase(std::string a_string);
+    std::string incoding(std::string a_string);
 
 private:
     std::string m_string;

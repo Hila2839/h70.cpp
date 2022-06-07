@@ -11,8 +11,18 @@ FromUser::FromUser()
 
 std::string FromUser::input()
 {
-    std::string m_string;
+    std::string new_string;
+    std::string input;
     std::cout<<"enter a sentnce:\n";
-    std::cin>>m_string;
-    return m_string;
+    std::cout<<"press enter for a new line, and \"EOM\" to end message\n";
+    
+    std::getline(std::cin, input);
+    
+    while(input != "EOM")
+    {
+        new_string += input;
+        new_string += '\n';
+        std::getline(std::cin, input);
+    }
+    return new_string;
 }

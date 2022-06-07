@@ -6,14 +6,13 @@
 #include "ToFile.hpp"
 #include "TextOutput.hpp"
 
-ToFile::ToFile(char* a_file_name, std::string a_string)
+ToFile::ToFile(const char* a_file_name)
 : TextOutput()
 , m_file_name(a_file_name)
-, m_string(a_string)
 {
 }
 
-void ToFile::output(std::string)
+void ToFile::output(std::string a_string)
 {
 
     std::ofstream file;
@@ -22,9 +21,9 @@ void ToFile::output(std::string)
 
     assert(file && "file open filure, need more channel");
     
-    for (size_t i = 0; i < m_string.size(); i++)
+    for (size_t i = 0; i < a_string.size(); i++)
     {
-       file<< m_string[i];
+       file<< a_string[i];
     }
 
     file.close();

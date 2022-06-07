@@ -12,10 +12,10 @@
 
 class ToFile :public TextOutput{
 public:
-    ToFile(char* a_file_name, std::string a_string);
-    virtual void output(std::string a_string) = 0;
+    ToFile(const char* a_file_name);
+    void output(std::string a_string);
 private:
-    char* m_file_name;
+    const char* m_file_name;
     std::string m_string;
 };
 

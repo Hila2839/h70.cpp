@@ -5,7 +5,7 @@
 #include "FromFile.hpp"
 #include "TextInput.hpp"
 
-FromFile::FromFile(char* a_file_name)
+FromFile::FromFile(const char* a_file_name)
 : TextInput()
 , m_file_name(a_file_name)
 {

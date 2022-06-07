@@ -9,8 +9,8 @@
 #include "TextTransformer.hpp"
 class UpperCase :public TextTransformer{
 public:
-    UpperCase(std::string a_string);
-    std::string incoding();
+   // UpperCase(std::string a_string);
+    std::string incoding(std::string a_string);
 
 private:
     std::string m_string;

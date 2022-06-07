@@ -13,8 +13,8 @@
 
 class ToUser :public TextOutput{
 public:
-    ToUser(std::string a_string);
-    virtual void output() = 0;
+    //ToUser();
+    void output(std::string a_string);
 private:
     std::string m_string;
 };

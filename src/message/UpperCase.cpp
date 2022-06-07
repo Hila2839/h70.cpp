@@ -4,18 +4,19 @@
 
 #include "UpperCase.hpp"
 #include "TextTransformer.hpp"
-
+/*
 UpperCase::UpperCase(std::string a_string)
 : TextTransformer()
 , m_string(a_string)
 {
 }
-
-std::string UpperCase::incoding()
+*/
+std::string UpperCase::incoding(std::string a_string)
 {
-    for(size_t i = 0; i < m_string.size(); ++i)
+    std::string new_string = a_string;
+    for(size_t i = 0; i < a_string.size(); ++i)
     {
-        m_string[i] = toupper(m_string[i]);
+        new_string[i] = toupper(a_string[i]);
     }  
-    return m_string; 
+    return new_string; 
 }

@@ -10,11 +10,11 @@
 
 class FromFile :public TextInput{
 public:
-    FromFile(char* a_file_name);
+    FromFile(const char* a_file_name);
     std::string input();
 
 private:
-    char* m_file_name;
+    const char* m_file_name;
     std::string m_string;
 };
 

@@ -1,5 +1,5 @@
-#ifndef CENSOR_H
-#define CENSOR_H
+#ifndef ROT13_H
+#define ROT13_H
 
 
 
@@ -10,9 +10,8 @@
 #include "TextTransformer.hpp"
 
 
-class Censor: public TextTransformer{
+class Rot13: public TextTransformer{
 public:
-    //Censor(std::string a_string);
     virtual std::string incoding(std::string a_string);
 
 private:
