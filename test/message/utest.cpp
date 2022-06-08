@@ -6,6 +6,7 @@
 #include "Censor.hpp"
 #include "UpperCase.hpp"
 #include "Rot13.hpp"
+#include "multi.hpp"
 
 #include "ToFile.hpp"
 #include "ToUser.hpp"
@@ -40,6 +41,7 @@ TextInput* get_input(std::string const& a_from)
 
 TextTransformer* get_transform(std::string const& a_trans)
 {
+	
 	if(a_trans == "up")
 	{
 		return new UpperCase;
@@ -55,6 +57,11 @@ TextTransformer* get_transform(std::string const& a_trans)
 	else if(a_trans == "rot13")
 	{
 		return new Rot13;
+	}
+	if(a_trans.size() >= 6)
+	{
+		std::string transformation = a_trans;
+		return new Multi(transformation);
 	}
 	return 0;
 }
