@@ -3,14 +3,23 @@
 
 #include "Censor.hpp"
 #include "TextTransformer.hpp"
-/*
-Censor::Censor(std::string a_string)
+
+std::string Censor::m_name = "censor";
+
+Censor::Censor()
 : TextTransformer()
-, m_string(a_string)
 {
 }
-*/
-std::string Censor::incoding(std::string a_string)
+
+
+std::string const& Censor::get_name()
+{
+    
+    return m_name;
+}
+
+
+std::string Censor::incoding(std::string const& a_string)
 {
     std::string new_string = a_string;
     

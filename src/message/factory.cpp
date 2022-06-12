@@ -1,9 +1,10 @@
 #include <map>
-#include <vector>
-#include <list>
-
+#include "Rot13.hpp"
 #include "factory.hpp"
-/*
+#include "UpperCase.hpp"
+#include "LowerCase.hpp"
+#include "Censor.hpp"
+
 TextTransformer* create_upper();
 TextTransformer* create_lower();
 TextTransformer* create_censor();
@@ -16,29 +17,15 @@ TextTransformer* create_rot13();
     std::map<std::string,funcPointer> m;
     m_map = m;
 
-    m_map["rot13"] = &create_rot13;
-    m_map["upper"] = &create_upper;
-    m_map["lower"] = &create_lower;
-    m_map["censor"] = &create_censor;
- }*/
-std::vector<TextTransformer*> Factory::vector_create(std::list<std::string> a_names)
-{
-    std::vector<TextTransformer*> transformers;
-    Factory factory;
-
-    std::list<std::string>::iterator begin=  a_names.begin();
-    std::list<std::string>::iterator end=  a_names.end();
-
-    while(begin != end)
-    {
-        transformers.push_back(factory.create(*begin));
-        begin++;
-    }
-    return transformers;
-}
+    m_map[Rot13::get_name()] = &create_rot13;
+    m_map[UpperCase::get_name()] = &create_upper;
+    m_map[LowerCase::get_name()] = &create_lower;
+    m_map[Censor::get_name()] = &create_censor;
+ }
 
 
-TextTransformer* Factory::create(std::string a_name)
+
+TextTransformer* Factory::create(std::string const& a_name)
 {
      std::map<std::string,funcPointer>::iterator trans_create;
      trans_create = m_map.find(a_name);
@@ -47,7 +34,6 @@ TextTransformer* Factory::create(std::string a_name)
      {
          return 0;
      }
-
     return trans_create->second();
 }
 

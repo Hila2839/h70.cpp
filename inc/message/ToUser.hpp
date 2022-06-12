@@ -14,7 +14,7 @@
 class ToUser :public TextOutput{
 public:
     //ToUser();
-    void output(std::string a_string);
+    void output(std::string const& a_string);
 private:
     std::string m_string;
 };

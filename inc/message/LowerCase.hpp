@@ -11,10 +11,11 @@
 class LowerCase: public TextTransformer{
 public:
    // LowerCase(std::string a_string);
-    std::string incoding(std::string a_string);
+    std::string incoding(std::string const& a_string);
+    static std::string const& get_name();
 
-private:
-    std::string m_string;
+protected:
+    static std::string m_name;
 };
 
 #endif

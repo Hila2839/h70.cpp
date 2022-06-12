@@ -8,7 +8,7 @@
 class TextTransformer
 {
 public:
-    virtual std::string incoding() = 0;
+    virtual std::string incoding(std::string const& a_string) = 0;
     virtual ~TextTransformer(){};
 };
 

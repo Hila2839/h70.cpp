@@ -11,7 +11,7 @@ ToUser::ToUser(std::string a_string)
 {
 }
 */
-void ToUser::output(std::string a_string)
+void ToUser::output(std::string const& a_string)
 {
     for (size_t i = 0; i < a_string.size(); i++)
     {

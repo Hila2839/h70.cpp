@@ -122,5 +122,9 @@ int main(int argc, char* argv[])
 	m.manipulate();
 	m.output();
 
+	delete i;
+	delete t;
+	delete o;
+
     return 0;
 }

@@ -22,7 +22,7 @@ public:
 
     std::string trans_sequence(std::vector<TextTransformer*> a_names);
 
-    std::string incoding(std::string a_string);
+    std::string incoding(std::string const& a_string);
 
 private:
     

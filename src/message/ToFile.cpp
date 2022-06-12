@@ -12,7 +12,7 @@ ToFile::ToFile(const char* a_file_name)
 {
 }
 
-void ToFile::output(std::string a_string)
+void ToFile::output(std::string const& a_string)
 {
 
     std::ofstream file;

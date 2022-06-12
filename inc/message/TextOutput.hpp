@@ -8,7 +8,7 @@
 
 class TextOutput{
 public:
-    virtual void output(std::string) = 0;
+    virtual void output(std::string const& a_string) = 0;
     virtual ~TextOutput(){};
 };
 
