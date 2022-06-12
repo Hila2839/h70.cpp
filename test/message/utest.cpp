@@ -39,9 +39,32 @@ TextInput* get_input(std::string const& a_from)
 }
 
 
+TextTransformer* create_upper()
+{
+    return new UpperCase;
+}
+
+TextTransformer* create_lower()
+{
+    return new LowerCase;
+}
+
+TextTransformer* create_censor()
+{
+    return new Censor;
+}
+
+TextTransformer* create_rot13()
+{
+    return new Rot13;
+}
+
 TextTransformer* get_transform(std::string const& a_trans)
 {
-	
+ 	std::string transformation = a_trans;
+	return new Multi(transformation, '+');
+}
+/*
 	if(a_trans == "up")
 	{
 		return new UpperCase;
@@ -64,7 +87,7 @@ TextTransformer* get_transform(std::string const& a_trans)
 		return new Multi(transformation);
 	}
 	return 0;
-}
+}*/
 
 TextOutput* get_output(std::string a_to)
 {
