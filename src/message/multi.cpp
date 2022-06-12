@@ -56,7 +56,7 @@ std::list<std::string> Multi::parcer()
     return transformers;
 }
 
-
+/*
 //gets a list of names and turn it to vector of TextTransformer* using create of factory
 std::vector<TextTransformer*> Multi::vector_create(std::list<std::string> a_names)
 {
@@ -73,7 +73,7 @@ std::vector<TextTransformer*> Multi::vector_create(std::list<std::string> a_name
     }
     return transformers;
 }
-
+*/
 
 std::string Multi::trans_sequence(std::vector<TextTransformer*> a_names)
 {

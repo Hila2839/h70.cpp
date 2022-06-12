@@ -1,6 +1,9 @@
 #include <map>
-#include "factory.hpp"
+#include <vector>
+#include <list>
 
+#include "factory.hpp"
+/*
 TextTransformer* create_upper();
 TextTransformer* create_lower();
 TextTransformer* create_censor();
@@ -17,8 +20,22 @@ TextTransformer* create_rot13();
     m_map["upper"] = &create_upper;
     m_map["lower"] = &create_lower;
     m_map["censor"] = &create_censor;
- }
+ }*/
+std::vector<TextTransformer*> Factory::vector_create(std::list<std::string> a_names)
+{
+    std::vector<TextTransformer*> transformers;
+    Factory factory;
 
+    std::list<std::string>::iterator begin=  a_names.begin();
+    std::list<std::string>::iterator end=  a_names.end();
+
+    while(begin != end)
+    {
+        transformers.push_back(factory.create(*begin));
+        begin++;
+    }
+    return transformers;
+}
 
 
 TextTransformer* Factory::create(std::string a_name)

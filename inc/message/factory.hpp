@@ -2,6 +2,8 @@
 #define FACTORY_H
 
 #include <map>
+#include <list>
+#include <vector>
 
 #include "TextTransformer.hpp"
 
@@ -11,6 +13,8 @@ class Factory
 {
 public:
     Factory();
+    std::vector<TextTransformer*> vector_create(std::list<std::string> a_names);
+
     TextTransformer* create(std::string a_name);
 
 private:
