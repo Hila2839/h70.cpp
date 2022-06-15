@@ -12,7 +12,7 @@
 class VirtualMachine
 {
 public:
-    VirtualMachine(size_t a_memory_size,const char* a_file_name);
+    VirtualMachine(size_t a_stack_size, size_t a_data_memory_size, size_t a_orders_memory_size, const char* a_file_name);
     void run();
 
     Ip& get_ip();

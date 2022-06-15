@@ -3,23 +3,21 @@
 
 #include <string>
 #include <exception>
+#include <iostream>
 /*
 class MachineError: public std::exception{
 public:
     MachineError(const char* a_func, const char* a_what);
 
-    virtual ~MachineError() throw();
+    virtual ~MachineError(){}
 
-    virtual void print(std::ostream& os) const;
+    virtual void print(std::ostream& os) const = 0;
 
-    virtual const char* what() const; //throw();
-    
-private:
-    std::string m_func;
-    std::string m_what;
+    virtual const char* what() const throw() = 0;
+ 
 };
 
+
+std::ostream& operator<<(std::ostream& os, MachineError const& e);
 */
-
-
 #endif

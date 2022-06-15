@@ -10,13 +10,9 @@ std::vector<std::string> from_file(const char* a_file_name)
 std::ifstream input_file(a_file_name);
 if(!input_file.is_open())
 {
-    //throw FileError("Loader", "failed to open a new file");
+    //throw FileError("from_file", "failed to open a new file");
 }
-/*
-catch(FileError const& a_error)
-{
-    cout<<"file open error\n";
-}*/
+
 std::vector<std::string> orders;
 std::string order;
 

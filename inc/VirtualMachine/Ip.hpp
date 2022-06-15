@@ -9,8 +9,10 @@ public:
     Ip();
     void next();
     void prev();
-    size_t get_ip();
-    void set_ip(size_t a_num);
+    size_t get_ip() const;
+    void jump_to(size_t a_num);
+    void operator++();
+    void operator--();
 
 
 private:
