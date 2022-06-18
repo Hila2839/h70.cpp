@@ -14,8 +14,8 @@ void write_plan_to_file()
 
     assert(file && "file open filure, need more channel");
     
-    //file<< "PUSH 18";//0
-    //file<<'\n';
+    file<< "PUSH 18";//0
+    file<<'\n';
     file<< "NOP";//0
     file<<'\n';
     file<<"ADD";//1

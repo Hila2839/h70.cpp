@@ -28,12 +28,13 @@ std::vector<Instruction*> Loader::memory_create(Ip& a_ip, Memory& a_memory, Stac
         if (found < (*begin).size())
         {
             std::string instruction = (*begin).substr(0,found);
-            if (*begin == "PUSH")
+            if (instruction == "PUSH")
             {
                 std::string param = (*begin).substr(found);
-                instructions.push_back(map.find_instruction(instruction,a_ip, a_memory, a_stack));
                 Instruction* num = new NUM(a_ip, a_stack, param);
+                instructions.push_back(map.find_instruction(instruction,a_ip, a_memory, a_stack));
                 instructions.push_back(num);
+                ++begin;
             }   
         
         }
