@@ -6,7 +6,7 @@ CPPFLAGS = -I$(INC_DIR)
 CFLAGS = -g3
 
 # c++ language
-CXXFLAGS = -std=c++03
+CXXFLAGS = -std=c++17
 CXXFLAGS+= -Wall -pedantic
 # CXXFLAGS+= -Werror
 CXXFLAGS+= -g3
@@ -20,27 +20,8 @@ SRC_DIR = ../../src/VirtualMachine
 
 TARGET = VirtualMachine
 OBJS = VirtualMachine.o \
-$(SRC_DIR)/NOP.o \
-$(SRC_DIR)/Ip.o \
-$(SRC_DIR)/Stack.o \
-$(SRC_DIR)/Memory.o \
-$(SRC_DIR)/Instruction.o \
-$(SRC_DIR)/Mapper.o \
-$(SRC_DIR)/Loader.o \
-$(SRC_DIR)/Parcer.o \
-$(SRC_DIR)/FileError.o \
-$(SRC_DIR)/MachineError.o \
-$(SRC_DIR)/ADD.o \
-$(SRC_DIR)/SUB.o \
-$(SRC_DIR)/AND.o \
-$(SRC_DIR)/OR.o \
-$(SRC_DIR)/XOR.o \
-$(SRC_DIR)/NOT.o \
-$(SRC_DIR)/IN.o \
-$(SRC_DIR)/OUT.o \
-$(SRC_DIR)/LOAD.o \
-$(SRC_DIR)/HLT.o \
-$(SRC_DIR)/DROP.o
+
+
 
 all: $(TARGET)
 
@@ -49,8 +30,8 @@ check: $(TARGET)
 
 
 VirtualMachine: VirtualMachine.cpp \
- $(INC_DIR)/NOP.hpp \
- $(SRC_DIR)/NOP.cpp \
+ $(INC_DIR)/Nop.hpp \
+ $(SRC_DIR)/Nop.cpp \
  $(INC_DIR)/Ip.hpp \
  $(SRC_DIR)/Ip.cpp \
  $(INC_DIR)/Stack.hpp \
@@ -69,28 +50,60 @@ VirtualMachine: VirtualMachine.cpp \
  $(INC_DIR)/Parcer.hpp \
  $(INC_DIR)/FileError.hpp \
  $(INC_DIR)/MachineError.hpp \
- $(SRC_DIR)/ADD.cpp \
- $(INC_DIR)/ADD.hpp \
- $(SRC_DIR)/SUB.cpp \
- $(INC_DIR)/SUB.hpp \
- $(SRC_DIR)/AND.cpp \
- $(INC_DIR)/AND.hpp \
- $(SRC_DIR)/OR.cpp \
- $(INC_DIR)/OR.hpp \
- $(SRC_DIR)/XOR.cpp \
- $(INC_DIR)/XOR.hpp \
- $(SRC_DIR)/NOT.cpp \
- $(INC_DIR)/NOT.hpp  \
- $(SRC_DIR)/IN.cpp \
- $(INC_DIR)/IN.hpp \
- $(SRC_DIR)/OUT.cpp \
- $(INC_DIR)/OUT.hpp \
- $(SRC_DIR)/LOAD.cpp \
- $(INC_DIR)/LOAD.hpp \
- $(SRC_DIR)/HLT.cpp \
- $(INC_DIR)/HLT.hpp \
- $(SRC_DIR)/DROP.cpp \
- $(INC_DIR)/DROP.hpp 
+ $(SRC_DIR)/Add.cpp \
+ $(INC_DIR)/Add.hpp \
+ $(SRC_DIR)/Sub.cpp \
+ $(INC_DIR)/Sub.hpp \
+ $(SRC_DIR)/And.cpp \
+ $(INC_DIR)/And.hpp \
+ $(SRC_DIR)/Or.cpp \
+ $(INC_DIR)/Or.hpp \
+ $(SRC_DIR)/Xor.cpp \
+ $(INC_DIR)/Xor.hpp \
+ $(SRC_DIR)/Not.cpp \
+ $(INC_DIR)/Not.hpp  \
+ $(SRC_DIR)/In.cpp \
+ $(INC_DIR)/In.hpp \
+ $(SRC_DIR)/Out.cpp \
+ $(INC_DIR)/Out.hpp \
+ $(SRC_DIR)/Load.cpp \
+ $(INC_DIR)/Load.hpp \
+ $(SRC_DIR)/Hlt.cpp \
+ $(INC_DIR)/Hlt.hpp \
+ $(SRC_DIR)/Drop.cpp \
+ $(INC_DIR)/Drop.hpp \
+ $(SRC_DIR)/UnderFlowError.cpp \
+ $(INC_DIR)/UnderFlowError.hpp \
+ $(SRC_DIR)/OverFlowError.cpp \
+ $(INC_DIR)/OverFlowError.hpp \
+ $(SRC_DIR)/OutOfRangeError.cpp \
+ $(INC_DIR)/OutOfRangeError.hpp \
+ $(SRC_DIR)/Stor.cpp \
+ $(INC_DIR)/Stor.hpp \
+ $(SRC_DIR)/Jmp.cpp \
+ $(INC_DIR)/Jmp.hpp \
+ $(SRC_DIR)/Jz.cpp \
+ $(INC_DIR)/Jz.hpp \
+ $(SRC_DIR)/Dup.cpp \
+ $(INC_DIR)/Dup.hpp \
+ $(SRC_DIR)/Swap.cpp \
+ $(INC_DIR)/Swap.hpp \
+ $(SRC_DIR)/Rol3.cpp \
+ $(INC_DIR)/Rol3.hpp \
+ $(SRC_DIR)/Innum.cpp \
+ $(INC_DIR)/Innum.hpp \
+ $(SRC_DIR)/Outnum.cpp \
+ $(INC_DIR)/Outnum.hpp \
+ $(SRC_DIR)/Jnz.cpp \
+ $(INC_DIR)/Jnz.hpp \
+ $(SRC_DIR)/Push.cpp \
+ $(INC_DIR)/Push.hpp \
+ $(SRC_DIR)/Compl.cpp \
+ $(INC_DIR)/Compl.hpp \
+ $(SRC_DIR)/Num.cpp \
+ $(INC_DIR)/Num.hpp 
+ 
+ 
 
 
 vala: $(TARGET)

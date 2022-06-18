@@ -14,27 +14,52 @@ void write_plan_to_file()
 
     assert(file && "file open filure, need more channel");
     
-    file<< "NOP";
-    file<<'\n';
-    file<<"ADD";
-    file<<'\n';
-    file<<"SUB";
-    file<<'\n';
-    file<<"AND";
-    file<<'\n';
-    file<<"OR";
-    file<<'\n';
-    file<<"XOR";
-    file<<'\n';
-    file<<"NOT";
-    file<<'\n';
-    file<<"IN";
-    file<<'\n';
-    file<<"OUT";
-    file<<'\n';
-    //file<<"LOAD";
+    //file<< "PUSH 18";//0
     //file<<'\n';
-    file<<"DROP";
+    file<< "NOP";//0
+    file<<'\n';
+    file<<"ADD";//1
+    file<<'\n';
+    file<<"SUB";//2
+    file<<'\n';
+    file<<"AND";//3
+    file<<'\n';
+    file<<"OR";//4
+    file<<'\n';
+    file<<"XOR";//5
+    file<<'\n';
+    file<<"NOT";//6
+    file<<'\n';
+    file<<"IN";//7
+    file<<'\n';
+    file<<"OUT";//8
+    file<<'\n';
+    file<<"LOAD";//9
+    file<<'\n';
+    file<<"DROP";//10
+    file<<'\n';
+    file<<"STOR";//11
+    file<<'\n';
+    file<<"JZ";//12
+    file<<'\n';
+    file<<"DUP";//13
+    file<<'\n';
+    file<<"SWAP";//14
+    file<<'\n';
+    file<<"ROL3";//15
+    file<<'\n';
+    file<<"INNUM";//16
+    file<<'\n';
+    file<<"OUTNUM";//17
+    file<<'\n';
+    file<<"JNZ";//18
+    file<<'\n';
+    file<<"COMPL";//19
+    file<<'\n';
+
+
+
+    file<<"JMP";
     file<<'\n';
 
 

@@ -1,5 +1,5 @@
-#ifndef FILEERROR_H
-#define FILEERROR_H
+#ifndef OUTOFRANGEERROR_H
+#define OUTOFRANGEERROR_H
 
 #include <string>
 #include <iostream>
@@ -7,11 +7,11 @@
 #include "MachineError.hpp"
 
 
-class FileError: public MachineError{
+class OutOfRangeError: public MachineError{
 public:
-    FileError(const char* a_func, const char* a_what);
+    OutOfRangeError(const char* a_func, const char* a_what);
 
-    virtual ~FileError() noexcept;//throw();
+    virtual ~OutOfRangeError() noexcept;//throw();
 
     virtual void print(std::ostream& os) const;
 

@@ -2,6 +2,7 @@
 #include "Instruction.hpp"
 #include "Parcer.hpp"
 #include "Mapper.hpp"
+#include "Num.hpp"
 
 
 
@@ -23,8 +24,24 @@ std::vector<Instruction*> Loader::memory_create(Ip& a_ip, Memory& a_memory, Stac
     Mapper map;
     while(begin != end)
     {
-        instructions.push_back(map.find_instruction(*begin,a_ip, a_memory, a_stack));
-        ++begin;
+        size_t found = (*begin).find(" ",0);
+        if (found < (*begin).size())
+        {
+            std::string instruction = (*begin).substr(0,found);
+            if (*begin == "PUSH")
+            {
+                std::string param = (*begin).substr(found);
+                instructions.push_back(map.find_instruction(instruction,a_ip, a_memory, a_stack));
+                Instruction* num = new NUM(a_ip, a_stack, param);
+                instructions.push_back(num);
+            }   
+        
+        }
+        else
+        {
+            instructions.push_back(map.find_instruction(*begin,a_ip, a_memory, a_stack));
+            ++begin;
+        }
     }
     
     return instructions;

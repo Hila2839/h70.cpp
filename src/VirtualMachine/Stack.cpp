@@ -1,4 +1,8 @@
 #include "Stack.hpp"
+#include "UnderFlowError.hpp" 
+#include "OverFlowError.hpp" 
+
+
 
 
 Stack::Stack(size_t a_stack_capacity)
@@ -13,7 +17,7 @@ int Stack::pop()
 {
     if(m_size == 0)
     {
-        //throw UnderflowError("stack:pop", "underflow");
+        throw UnderFlowError("stack:pop", "underflow");
     }
     int poped = m_stack.top();
     m_stack.pop();
@@ -25,7 +29,7 @@ void Stack::push(int a_num)
 {
     if(m_size >= m_capacity)
     {
-        //throw OverflowError("stack:push", "overflow");
+        throw OverFlowError("stack:push", "overflow");
     }
     m_stack.push(a_num);
     ++m_size;
@@ -36,7 +40,7 @@ const int Stack::top() const
 {
     if(m_size == 0)
     {
-        //throw UnderflowError("stack:pop", "underflow");
+        throw UnderFlowError("stack:pop", "underflow");
     }
     return m_stack.top();
 }

@@ -1,5 +1,5 @@
-#ifndef FILEERROR_H
-#define FILEERROR_H
+#ifndef UNDERFLOWERROR_H
+#define UNDERFLOWERROR_H
 
 #include <string>
 #include <iostream>
@@ -7,11 +7,11 @@
 #include "MachineError.hpp"
 
 
-class FileError: public MachineError{
+class UnderFlowError: public MachineError{
 public:
-    FileError(const char* a_func, const char* a_what);
+    UnderFlowError(const char* a_func, const char* a_what);
 
-    virtual ~FileError() noexcept;//throw();
+    virtual ~UnderFlowError() noexcept;//throw();
 
     virtual void print(std::ostream& os) const;
 

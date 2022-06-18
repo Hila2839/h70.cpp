@@ -5,6 +5,7 @@
 #include "VirtualMachine.hpp"
 #include "Memory.hpp"
 #include "Loader.hpp"
+#include "MachineError.hpp"
 
 
 VirtualMachine::VirtualMachine(size_t a_stack_size, size_t a_data_memory_size, size_t a_orders_memory_size, const char* a_file_name)
@@ -52,18 +53,18 @@ void VirtualMachine::run()
     std::cout<<'\n';
     while(true)
     {
-        if(m_memory.get_Instruction(m_ip.get_ip()) == 0)
-        {
-            break;
-        }
         std::cout<<m_ip.get_ip()<<"<-ip :";
-        //try{
+        try{
         m_memory.get_Instruction(m_ip.get_ip())->execute();
         m_stack.print();
-        //}catch{(MachineError& e)
-        //    std::cout << e << '\n';
-         //   break;
-        //}
+        }
+        catch(MachineError& e){
+            std::cout<<e<<'\n';
+            break;
+        }
+        catch(...){
+            break;
+        }
         std::cout<<'\n';
         //catches!!!
 
@@ -84,11 +85,15 @@ int main()
 {
     VirtualMachine my_machine(100, 100, 100,"plan 1");
     my_machine.get_stack().push(10);
-    my_machine.get_stack().push(20);
+    my_machine.get_stack().push(2);
     my_machine.get_stack().push(5);
     my_machine.get_stack().push(0);
     my_machine.get_stack().push(5);
     my_machine.get_stack().push(2);
+    my_machine.get_stack().push(6);
+    my_machine.get_stack().push(5);
+    my_machine.get_stack().push(2);
+    my_machine.get_stack().push(6);
     my_machine.get_stack().push(6);
     my_machine.get_stack().push(5);
     my_machine.get_stack().push(2);
