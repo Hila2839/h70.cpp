@@ -10,12 +10,9 @@
 class NOP: public Instruction
 {
 public:
-    NOP(Ip& a_ip);
-    void execute();
+    void execute(Bus& a_bus);
     static const std::string NAME;
-private:
-    Ip& m_ip;
 };
 
-Instruction* create_nop(Ip& a_ip, Memory& a_memory, Stack& a_stack);
+Instruction* create_nop();
 

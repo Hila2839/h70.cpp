@@ -8,29 +8,22 @@
 const std::string ROL3::NAME = "ROL3";
 
 
-ROL3::ROL3(Ip& a_ip, Stack& a_stack)
-: m_ip(a_ip)
-, m_stack(a_stack)
+Instruction* create_rol3()
 {
+    return new ROL3();
 }
 
 
-Instruction* create_rol3(Ip& a_ip, Memory& a_memory, Stack& a_stack)
-{
-    return new ROL3(a_ip, a_stack);
-}
-
-
- void ROL3::execute()
+ void ROL3::execute(Bus& a_bus)
  {
-    int top_1 = m_stack.pop();
-    int top_2 = m_stack.pop();
-    int top_3 = m_stack.pop();
+    int top_1 = a_bus.pop_from_stack();
+    int top_2 = a_bus.pop_from_stack();
+    int top_3 = a_bus.pop_from_stack();
 
-    m_stack.push(top_1);
-    m_stack.push(top_3);
-    m_stack.push(top_2);
+    a_bus.push_to_stack(top_1);
+    a_bus.push_to_stack(top_3);
+    a_bus.push_to_stack(top_2);
 
-    m_ip.next();
+    a_bus.ip_next();
 
  }

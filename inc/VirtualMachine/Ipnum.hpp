@@ -1,5 +1,5 @@
-#ifndef NUM_H
-#define NUM_H
+#ifndef IPNUM_H
+#define IPNUM_H
 
 
 #include <string>
@@ -11,15 +11,15 @@
 
 
 
-class NUM: public Instruction
+class IPNUM: public Instruction
 {
 public:
-    NUM(std::string a_num);
+    IPNUM(std::string a_num);
     void execute(Bus& a_bus);
 private:
     std::string m_operand;
 };
 
-Instruction* create_num(std::string a_num);
+Instruction* create_ipnum(std::string a_num);
 
 #endif

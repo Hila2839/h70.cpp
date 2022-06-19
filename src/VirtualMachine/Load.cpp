@@ -8,24 +8,16 @@
 const std::string LOAD::NAME = "LOAD";
 
 
-LOAD::LOAD(Ip& a_ip, Stack& a_stack, Memory& a_memory)
-: m_ip(a_ip)
-, m_stack(a_stack)
-, m_memory(a_memory)
+Instruction* create_load()
 {
+    return new LOAD();
 }
 
 
-Instruction* create_load(Ip& a_ip, Memory& a_memory, Stack& a_stack)
-{
-    return new LOAD(a_ip, a_stack, a_memory);
-}
-
-
- void LOAD::execute()
+ void LOAD::execute(Bus& a_bus)
  {
-    int adress = m_stack.pop();
-    int data = m_memory.get_data(adress);
-    m_stack.push(data);
-    m_ip.next();
+    int adress = a_bus.pop_from_stack();
+    int data = a_bus.get_data(adress);
+    a_bus.push_to_stack(data);
+     a_bus.ip_next();
  }

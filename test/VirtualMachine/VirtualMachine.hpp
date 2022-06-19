@@ -16,7 +16,8 @@ public:
     void run();
 
     Ip& get_ip();
-    
+    Stack& get_ip_stack();
+
     Memory& get_memory();
 
     void set_memory(Memory& a_memory);
@@ -29,6 +30,7 @@ private:
     Ip m_ip;
     Memory m_memory;
     const char* m_file_name;
+    Stack m_ip_stack;
 };
 
 

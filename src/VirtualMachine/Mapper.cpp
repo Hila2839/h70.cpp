@@ -22,6 +22,9 @@
 #include "Jnz.hpp"
 #include "Push.hpp"
 #include "Compl.hpp"
+#include "Popip.hpp"
+#include "Dropip.hpp"
+#include "Ippush.hpp"
 
 
 
@@ -59,15 +62,14 @@ m_map[INNUM::NAME] = &create_innum;
 m_map[JNZ::NAME] = &create_jnz;
 m_map[PUSH::NAME] = &create_nop;
 m_map[COMPL::NAME] = &create_compl;
-
-
-
-
+m_map[POPIP::NAME] = &create_popip;
+m_map[DROPIP::NAME] = &create_dropip;
+m_map[PUSHIP::NAME] = &create_nop;
 
 }
 
 
-Instruction* Mapper::find_instruction(std::string const& a_word, Ip& a_ip,Memory& a_memory,Stack& a_stack)
+Instruction* Mapper::find_instruction(std::string const& a_word)
 {
 std::map<std::string,funcPointer>::iterator instruction_create;
 instruction_create = m_map.find(a_word);
@@ -77,6 +79,6 @@ if(instruction_create == m_map.end())
     throw MapError("Map find", "command doesn't exist in map");//TODO
 }
 */
-return instruction_create->second(a_ip, a_memory, a_stack);
+return instruction_create->second();
 }
 

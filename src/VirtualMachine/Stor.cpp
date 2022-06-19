@@ -8,26 +8,19 @@
 const std::string STOR::NAME = "STOR";
 
 
-STOR::STOR(Ip& a_ip, Stack& a_stack, Memory& a_memory)
-: m_ip(a_ip)
-, m_stack(a_stack)
-, m_memory(a_memory)
+Instruction* create_stor()
 {
+    return new STOR();
 }
 
 
-Instruction* create_stor(Ip& a_ip, Memory& a_memory, Stack& a_stack)
-{
-    return new STOR(a_ip, a_stack, a_memory);
-}
 
-
- void STOR::execute()
+ void STOR::execute(Bus& a_bus)
  {
-    int adress = m_stack.pop();
-    int data = m_stack.pop();
+    int adress = a_bus.pop_from_stack();
+    int data = a_bus.pop_from_stack();
     
-    m_memory.set_data(adress, data);
+    a_bus.set_data(adress, data);
 
-    m_ip.next();
+    a_bus.ip_next();
  }

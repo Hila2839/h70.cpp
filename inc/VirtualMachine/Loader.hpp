@@ -20,7 +20,7 @@ public:
 
     std::vector<std::string> const& parcer() const;
 
-    std::vector<Instruction*> memory_create(Ip& a_ip, Memory& a_memory, Stack& a_stack);
+    std::vector<Instruction*> memory_create();
 
 
 

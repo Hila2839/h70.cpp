@@ -3,6 +3,7 @@
 #include "Parcer.hpp"
 #include "Mapper.hpp"
 #include "Num.hpp"
+#include "Ipnum.hpp"
 
 
 
@@ -12,7 +13,7 @@ Loader::Loader(const char* a_file_name)
 }
 
 
-std::vector<Instruction*> Loader::memory_create(Ip& a_ip, Memory& a_memory, Stack& a_stack)
+std::vector<Instruction*> Loader::memory_create()
 {
     std::vector<std::string> const& words = from_file(m_file_name);
 
@@ -31,8 +32,16 @@ std::vector<Instruction*> Loader::memory_create(Ip& a_ip, Memory& a_memory, Stac
             if (instruction == "PUSH")
             {
                 std::string param = (*begin).substr(found);
-                Instruction* num = new NUM(a_ip, a_stack, param);
-                instructions.push_back(map.find_instruction(instruction,a_ip, a_memory, a_stack));
+                Instruction* num = new NUM(param);
+                instructions.push_back(map.find_instruction(instruction));
+                instructions.push_back(num);
+                ++begin;
+            }   
+            if (instruction == "PUSHIP")
+            {
+                std::string param = (*begin).substr(found);
+                Instruction* num = new IPNUM(param);
+                instructions.push_back(map.find_instruction(instruction));
                 instructions.push_back(num);
                 ++begin;
             }   
@@ -40,7 +49,7 @@ std::vector<Instruction*> Loader::memory_create(Ip& a_ip, Memory& a_memory, Stac
         }
         else
         {
-            instructions.push_back(map.find_instruction(*begin,a_ip, a_memory, a_stack));
+            instructions.push_back(map.find_instruction(*begin));
             ++begin;
         }
     }

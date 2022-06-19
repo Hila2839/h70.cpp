@@ -10,12 +10,9 @@
 class PUSH: public Instruction
 {
 public:
-    PUSH(Ip& a_ip, Stack& a_stack);
+   
+   void execute(Bus& a_bus);
     static const std::string NAME;
-private:
-    Ip& m_ip;
-    Stack& m_stack;
-    int m_operand;
 };
 
 

@@ -55,6 +55,12 @@ void Memory::set_data(size_t a_data_index, unsigned long const& a_data)
 
 } 
 
+void Memory::push_data(unsigned long const& a_data)
+{
+    m_data_memory.push_back(a_data);
+}
+
+
 
 void Memory::init_data_memory()
 {

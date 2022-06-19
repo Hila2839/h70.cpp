@@ -30,8 +30,6 @@ check: $(TARGET)
 
 
 VirtualMachine: VirtualMachine.cpp \
- $(INC_DIR)/Nop.hpp \
- $(SRC_DIR)/Nop.cpp \
  $(INC_DIR)/Ip.hpp \
  $(SRC_DIR)/Ip.cpp \
  $(INC_DIR)/Stack.hpp \
@@ -50,6 +48,9 @@ VirtualMachine: VirtualMachine.cpp \
  $(INC_DIR)/Parcer.hpp \
  $(INC_DIR)/FileError.hpp \
  $(INC_DIR)/MachineError.hpp \
+ $(INC_DIR)/Nop.hpp \
+ $(SRC_DIR)/Nop.cpp \
+ $(INC_DIR)/Outnum.hpp \
  $(SRC_DIR)/Add.cpp \
  $(INC_DIR)/Add.hpp \
  $(SRC_DIR)/Sub.cpp \
@@ -80,28 +81,44 @@ VirtualMachine: VirtualMachine.cpp \
  $(INC_DIR)/OutOfRangeError.hpp \
  $(SRC_DIR)/Stor.cpp \
  $(INC_DIR)/Stor.hpp \
- $(SRC_DIR)/Jmp.cpp \
- $(INC_DIR)/Jmp.hpp \
- $(SRC_DIR)/Jz.cpp \
- $(INC_DIR)/Jz.hpp \
  $(SRC_DIR)/Dup.cpp \
  $(INC_DIR)/Dup.hpp \
  $(SRC_DIR)/Swap.cpp \
  $(INC_DIR)/Swap.hpp \
  $(SRC_DIR)/Rol3.cpp \
  $(INC_DIR)/Rol3.hpp \
- $(SRC_DIR)/Innum.cpp \
- $(INC_DIR)/Innum.hpp \
- $(SRC_DIR)/Outnum.cpp \
  $(INC_DIR)/Outnum.hpp \
- $(SRC_DIR)/Jnz.cpp \
- $(INC_DIR)/Jnz.hpp \
+ $(SRC_DIR)/Innum.cpp \
+ $(INC_DIR)/Outnum.hpp \
+ $(INC_DIR)/Innum.hpp \
+ $(INC_DIR)/Outnum.hpp \
+ $(SRC_DIR)/Outnum.cpp \
  $(SRC_DIR)/Push.cpp \
  $(INC_DIR)/Push.hpp \
  $(SRC_DIR)/Compl.cpp \
  $(INC_DIR)/Compl.hpp \
  $(SRC_DIR)/Num.cpp \
- $(INC_DIR)/Num.hpp 
+ $(INC_DIR)/Num.hpp \
+ $(SRC_DIR)/Bus.cpp \
+ $(INC_DIR)/Bus.hpp \
+ $(SRC_DIR)/BiInstruction.cpp \
+ $(INC_DIR)/BiInstruction.hpp \
+ $(SRC_DIR)/IpInstruction.cpp \
+ $(INC_DIR)/IpInstruction.hpp \
+ $(SRC_DIR)/Jmp.cpp \
+ $(INC_DIR)/Jmp.hpp \
+ $(SRC_DIR)/Jz.cpp \
+ $(INC_DIR)/Jz.hpp \
+ $(SRC_DIR)/Jnz.cpp \
+ $(INC_DIR)/Jnz.hpp \
+ $(SRC_DIR)/Popip.cpp \
+ $(INC_DIR)/Popip.hpp \
+ $(SRC_DIR)/Dropip.cpp \
+ $(INC_DIR)/Dropip.hpp \
+ $(SRC_DIR)/Ippush.cpp \
+ $(INC_DIR)/Ippush.hpp \
+ $(SRC_DIR)/Ipnum.cpp \
+ $(INC_DIR)/Ipnum.hpp 
  
  
 

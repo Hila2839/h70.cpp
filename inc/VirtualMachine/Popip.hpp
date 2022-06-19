@@ -1,18 +1,19 @@
+#ifndef POPIP_H
+#define POPIP_H
+
 #include <string>
 
 #include "Instruction.hpp"
-#include "Stack.hpp"
-#include "Memory.hpp"
-#include "Ip.hpp"
 
 
 
-class INNUM: public Instruction
+class POPIP: public Instruction
 {
 public:
    void execute(Bus& a_bus);
     static const std::string NAME;
 };
 
-Instruction* create_innum();
+Instruction* create_popip();
 
+#endif//POPIP_H

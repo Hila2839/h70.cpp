@@ -9,18 +9,15 @@
 const std::string HLT::NAME = "HLT";
 
 
-HLT::HLT()
-{
-}
 
-
-Instruction* create_hlt(Ip& a_ip, Memory& a_memory, Stack& a_stack)
+Instruction* create_hlt()
 {
     return new HLT();
 }
 
 
- void HLT::execute()
+
+ void HLT::execute(Bus& a_bus)
  {
      exit(0);
  }

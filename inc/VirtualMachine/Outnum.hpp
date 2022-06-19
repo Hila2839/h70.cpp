@@ -10,14 +10,10 @@
 class OUTNUM: public Instruction
 {
 public:
-    OUTNUM(Ip& a_ip, Stack& a_stack);
-    void execute();
+    
+   void execute(Bus& a_bus);
     static const std::string NAME;
-private:
-    Ip& m_ip;
-    Stack& m_stack;
-    int m_operand;
 };
 
-Instruction* create_outnum(Ip& a_ip, Memory& a_memory, Stack& a_stack);
+Instruction* create_outnum();
 

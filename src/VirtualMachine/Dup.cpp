@@ -8,23 +8,16 @@
 const std::string DUP::NAME = "DUP";
 
 
-DUP::DUP(Ip& a_ip, Stack& a_stack)
-: m_ip(a_ip)
-, m_stack(a_stack)
+Instruction* create_dup()
 {
+    return new DUP();
 }
 
 
-Instruction* create_dup(Ip& a_ip, Memory& a_memory, Stack& a_stack)
-{
-    return new DUP(a_ip, a_stack);
-}
-
-
- void DUP::execute()
+ void DUP::execute(Bus& a_bus)
  {
-    int top = m_stack.pop();
-    m_stack.push(top * 2);
-    m_ip.next();
+    int top = a_bus.pop_from_stack();
+    a_bus.push_to_stack(top * 2);
+    a_bus.ip_next();
 
  }

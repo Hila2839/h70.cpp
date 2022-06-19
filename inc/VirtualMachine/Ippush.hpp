@@ -7,12 +7,11 @@
 
 
 
-class INNUM: public Instruction
+class PUSHIP: public Instruction
 {
 public:
    void execute(Bus& a_bus);
     static const std::string NAME;
 };
 
-Instruction* create_innum();
 

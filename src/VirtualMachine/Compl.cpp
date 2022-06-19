@@ -7,24 +7,19 @@
 const std::string COMPL::NAME = "COMPL";
 
 
-COMPL::COMPL(Ip& a_ip, Stack& a_stack)
-: m_ip(a_ip)
-, m_stack(a_stack)
+Instruction* create_compl()
 {
+    return new COMPL();
 }
 
 
-Instruction* create_compl(Ip& a_ip, Memory& a_memory, Stack& a_stack)
-{
-    return new COMPL(a_ip, a_stack);
-}
 
 
- void COMPL::execute()
+ void COMPL::execute(Bus& a_bus)
  {
     
-    int a = m_stack.pop();
+    int a = a_bus.pop_from_stack();
     
-    m_stack.push(~a);
-    m_ip.next();
+    a_bus.push_to_stack(~a);
+    a_bus.ip_next();
  }

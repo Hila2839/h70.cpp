@@ -1,23 +1,20 @@
+#ifndef ADD_HPP
+#define ADD_HPP
+
 #include <string>
 
-#include "Instruction.hpp"
-#include "Stack.hpp"
-#include "Memory.hpp"
-#include "Ip.hpp"
+#include "BiInstruction.hpp"
 
 
 
-class ADD: public Instruction
+class ADD: public BiInstruction
 {
 public:
-    ADD(Ip& a_ip, Stack& a_stack);
-    void execute();
     static const std::string NAME;
-private:
-    Ip& m_ip;
-    Stack& m_stack;
-    int m_operand;
+    virtual int actual_op(int a_first, int a_second);
+   
 };
 
-Instruction* create_add(Ip& a_ip, Memory& a_memory, Stack& a_stack);
+Instruction* create_add();
 
+#endif

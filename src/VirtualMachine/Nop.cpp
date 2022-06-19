@@ -7,24 +7,15 @@
 const std::string NOP::NAME = "NOP";
 
 
-NOP::NOP(Ip& a_ip)
-: m_ip(a_ip)
+Instruction* create_nop()
 {
+    return new NOP();
 }
 
 
 
 
-
-Instruction* create_nop(Ip& a_ip, Memory& a_memory, Stack& a_stack)
-{
-    return new NOP(a_ip);
-}
-
-
-
-
- void NOP::execute()
+ void NOP::execute(Bus& a_bus)
  {
-    m_ip.next();
+    a_bus.ip_next();
  }

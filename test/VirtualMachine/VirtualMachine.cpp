@@ -6,6 +6,7 @@
 #include "Memory.hpp"
 #include "Loader.hpp"
 #include "MachineError.hpp"
+#include "Bus.hpp"
 
 
 VirtualMachine::VirtualMachine(size_t a_stack_size, size_t a_data_memory_size, size_t a_orders_memory_size, const char* a_file_name)
@@ -13,10 +14,11 @@ VirtualMachine::VirtualMachine(size_t a_stack_size, size_t a_data_memory_size, s
 , m_ip()
 , m_memory(a_data_memory_size, a_orders_memory_size)
 , m_file_name(a_file_name)
+, m_ip_stack(a_stack_size)
 {
     Loader load(m_file_name);
    
-    std::vector<Instruction*> memory = load.memory_create(get_ip(),get_memory(),get_stack());
+    std::vector<Instruction*> memory = load.memory_create();
     m_memory.set_orders_to_memory(memory);
 
 }
@@ -42,6 +44,14 @@ Stack& VirtualMachine::get_stack()
     return m_stack;
 }
 
+
+Stack& VirtualMachine::get_ip_stack()
+{
+    return m_ip_stack;
+}
+
+
+
 void VirtualMachine::init_memory()
 {
    
@@ -49,13 +59,14 @@ void VirtualMachine::init_memory()
 
 void VirtualMachine::run()
 {
+    Bus bus(get_stack(), get_ip(),get_memory(), get_ip_stack());
     m_stack.print();
     std::cout<<'\n';
     while(true)
     {
         std::cout<<m_ip.get_ip()<<"<-ip :";
         try{
-        m_memory.get_Instruction(m_ip.get_ip())->execute();
+        m_memory.get_Instruction(m_ip.get_ip())->execute(bus);
         m_stack.print();
         }
         catch(MachineError& e){
@@ -83,21 +94,7 @@ catch(FileError const& a_error)
 
 int main()
 {
-    VirtualMachine my_machine(100, 100, 100,"plan 1");
-    my_machine.get_stack().push(10);
-    my_machine.get_stack().push(2);
-    my_machine.get_stack().push(5);
-    my_machine.get_stack().push(0);
-    my_machine.get_stack().push(5);
-    my_machine.get_stack().push(2);
-    my_machine.get_stack().push(6);
-    my_machine.get_stack().push(5);
-    my_machine.get_stack().push(2);
-    my_machine.get_stack().push(6);
-    my_machine.get_stack().push(6);
-    my_machine.get_stack().push(5);
-    my_machine.get_stack().push(2);
-    my_machine.get_stack().push(6);
+    VirtualMachine my_machine(100, 100, 100,"loop");
 
     my_machine.run();
 

@@ -7,6 +7,8 @@
 
 #include "Instruction.hpp"
 
+class Instruction;
+
 class Memory
 {
 public:

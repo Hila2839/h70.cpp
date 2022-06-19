@@ -1,23 +1,18 @@
 #include <string>
 
-#include "Instruction.hpp"
+#include "IpInstruction.hpp"
 #include "Stack.hpp"
 #include "Memory.hpp"
 #include "Ip.hpp"
 
 
 
-class JNZ: public Instruction
+class JNZ: public IpInstruction
 {
 public:
-    JNZ(Ip& a_ip, Stack& a_stack);
-    void execute();
+    virtual bool is_to_adress(int a_is_zero);
     static const std::string NAME;
-private:
-    Ip& m_ip;
-    Stack& m_stack;
-    int m_operand;
 };
 
-Instruction* create_jnz(Ip& a_ip, Memory& a_memory, Stack& a_stack);
+Instruction* create_jnz();
 

@@ -10,13 +10,13 @@
 #include "Ip.hpp"
 
 
-typedef Instruction* (*funcPointer)(Ip& a_ip, Memory& a_memory, Stack& a_stack);
+typedef Instruction* (*funcPointer)();
 
 class Mapper
 {
 public:
     Mapper();
-    Instruction* find_instruction(std::string const& a_word,Ip& a_ip,Memory& a_memory,Stack& a_stack);
+    Instruction* find_instruction(std::string const& a_word);
     
 private:
     std::map<std::string, funcPointer> m_map;

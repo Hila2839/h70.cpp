@@ -21,7 +21,6 @@ private:
     std::stack<int> m_stack;
     size_t m_size;
     size_t m_capacity;
-
 };
 
 
