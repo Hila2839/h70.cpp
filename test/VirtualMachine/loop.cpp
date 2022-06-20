@@ -13,47 +13,54 @@ void write_plan_to_file()
     file.open("loop");
 
     assert(file && "file open filure, need more channel");
-    
-
+ 
     file<< "PUSH 100";//0
     file<<'\n';
-    file<< "PUSHIP 5";//0
+    file<< "PUSHIP 10";//1
     file<<'\n';
-    file<<"PUSHIP 13";//1
+    file<<"PUSHIP 8";//2
     file<<'\n';
-    file<<"POPIP";//2
+    file<<"POPIP";//3
     file<<'\n';
-    file<<"ADD";//3
+    file<<"PUSH 12";//4
     file<<'\n';
-    file<<"HLT";//4
+    file<<"PUSHIP 16";//5
     file<<'\n';
-    file<<"NOP";//5
+    file<<"PUSHIP 19";//6
     file<<'\n';
-    file<<"NOP";//6
+    file<<"POPIP";//7
     file<<'\n';
-    file<<"DUP";//13
-    file<<'\n';
-    file<<"DUP";//13
-    file<<'\n';
-    file<<"DUP";//13
-    file<<'\n';
-    file<<"DUP";//13
-    file<<'\n';
-    file<<"DUP";//13
-    file<<'\n';
-    file<<"ADD";//7
-    file<<'\n';
-    file<<"ADD";//7
-    file<<'\n';
-    file<<"ADD";//7
-    file<<'\n';
-    file<<"ADD";//7
-    file<<'\n';
-    file<<"ADD";//7
-    file<<'\n';
-    file<<"POPIP";//8
+    file<<"ADD";//8
     file<<'\n';
     file<<"HLT";//9
+    file<<'\n';
+    file<<"NOP";//10
+    file<<'\n';
+    file<<"NOP";//11
+    file<<'\n';
+    file<<"DUP";//12
+    file<<'\n';
+    file<<"DUP";//13
+    file<<'\n';
+    file<<"DUP";//14
+    file<<'\n';
+    file<<"DUP";//15
+    file<<'\n';
+    file<<"DUP";//16
+    file<<'\n';
+    file<<"POPIP";//22
+    file<<'\n';
+    file<<"ADD";//17
+    file<<'\n';
+    file<<"ADD";//18
+    file<<'\n';
+    file<<"ADD";//19
+    file<<'\n';
+    file<<"ADD";//20
+    file<<'\n';
+    file<<"ADD";//21
+    file<<'\n';
+    file<<"HLT";//23
     file<<'\n';
     
     

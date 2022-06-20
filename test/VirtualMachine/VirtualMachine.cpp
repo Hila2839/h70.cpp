@@ -61,6 +61,8 @@ void VirtualMachine::run()
 {
     Bus bus(get_stack(), get_ip(),get_memory(), get_ip_stack());
     m_stack.print();
+    std::cout<<"ip stack:\n";
+    m_ip_stack.print();
     std::cout<<'\n';
     while(true)
     {
@@ -68,6 +70,8 @@ void VirtualMachine::run()
         try{
         m_memory.get_Instruction(m_ip.get_ip())->execute(bus);
         m_stack.print();
+        std::cout<<"ip stack:\n";
+        m_ip_stack.print();
         }
         catch(MachineError& e){
             std::cout<<e<<'\n';

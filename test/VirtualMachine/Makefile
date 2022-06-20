@@ -105,6 +105,8 @@ VirtualMachine: VirtualMachine.cpp \
  $(INC_DIR)/BiInstruction.hpp \
  $(SRC_DIR)/IpInstruction.cpp \
  $(INC_DIR)/IpInstruction.hpp \
+ $(SRC_DIR)/JmpInstruction.cpp \
+ $(INC_DIR)/JmpInstruction.hpp \
  $(SRC_DIR)/Jmp.cpp \
  $(INC_DIR)/Jmp.hpp \
  $(SRC_DIR)/Jz.cpp \
@@ -118,7 +120,17 @@ VirtualMachine: VirtualMachine.cpp \
  $(SRC_DIR)/Ippush.cpp \
  $(INC_DIR)/Ippush.hpp \
  $(SRC_DIR)/Ipnum.cpp \
- $(INC_DIR)/Ipnum.hpp 
+ $(INC_DIR)/Ipnum.hpp \
+ $(SRC_DIR)/Jg.cpp \
+ $(INC_DIR)/Jg.hpp \
+ $(SRC_DIR)/Je.cpp \
+ $(INC_DIR)/Je.hpp \
+ $(SRC_DIR)/Jl.cpp \
+ $(INC_DIR)/Jl.hpp \
+ $(SRC_DIR)/Jle.cpp \
+ $(INC_DIR)/Jle.hpp \
+ $(SRC_DIR)/AddrNum.cpp \
+ $(INC_DIR)/AddrNum.hpp 
  
  
 

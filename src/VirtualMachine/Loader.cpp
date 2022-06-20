@@ -4,6 +4,8 @@
 #include "Mapper.hpp"
 #include "Num.hpp"
 #include "Ipnum.hpp"
+#include "AddrNum.hpp"
+
 
 
 
@@ -45,6 +47,16 @@ std::vector<Instruction*> Loader::memory_create()
                 instructions.push_back(num);
                 ++begin;
             }   
+            if (instruction == "JG" ||instruction == "JLE"
+                    ||instruction == "JL"||instruction == "JE")
+            {
+                std::string param = (*begin).substr(found);
+                Instruction* num = new AddrNUM(param);
+                instructions.push_back(map.find_instruction(instruction));
+                instructions.push_back(num);
+                ++begin;
+            }   
+             
         
         }
         else

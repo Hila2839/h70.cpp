@@ -25,6 +25,12 @@
 #include "Popip.hpp"
 #include "Dropip.hpp"
 #include "Ippush.hpp"
+#include "Jg.hpp"
+#include "Je.hpp"
+#include "Jl.hpp"
+#include "Jle.hpp"
+
+
 
 
 
@@ -65,6 +71,11 @@ m_map[COMPL::NAME] = &create_compl;
 m_map[POPIP::NAME] = &create_popip;
 m_map[DROPIP::NAME] = &create_dropip;
 m_map[PUSHIP::NAME] = &create_nop;
+m_map[JG::NAME] = &create_jg;
+m_map[JE::NAME] = &create_je;
+m_map[JL::NAME] = &create_jl;
+m_map[JLE::NAME] = &create_jle;
+
 
 }
 
