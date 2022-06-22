@@ -3,7 +3,7 @@
 #include "Parcer.hpp"
 #include "Mapper.hpp"
 #include "Num.hpp"
-#include "Ipnum.hpp"
+#include "Label.hpp"
 #include "AddrNum.hpp"
 
 
@@ -17,7 +17,7 @@ Loader::Loader(const char* a_file_name)
 
 std::vector<Instruction*> Loader::memory_create()
 {
-    std::vector<std::string> const& words = from_file(m_file_name);
+    std::vector<std::string> words = from_file(m_file_name);
 
     std::vector<Instruction*> instructions;
 
@@ -25,9 +25,35 @@ std::vector<Instruction*> Loader::memory_create()
     std::vector<std::string>::const_iterator end = words.end();
 
     Mapper map;
+    int place_counter = 0;
+    std::string label ;
+    while(begin != end)
+    {
+        size_t delimiter = (*begin).find(":",0);
+        size_t found = (*begin).find(" ",0);
+        
+        if (found < (*begin).size())
+        {
+            ++place_counter;
+        }
+        if (delimiter < (*begin).size())
+        {
+            label = (*begin).substr(0,delimiter);
+
+            int ip = place_counter + 1;
+            labels_to_numbers(label,ip);
+
+        }
+        ++place_counter;
+        ++begin;
+    }
+
+    begin = words.begin();
+    end = words.end();
     while(begin != end)
     {
         size_t found = (*begin).find(" ",0);
+        
         if (found < (*begin).size())
         {
             std::string instruction = (*begin).substr(0,found);
@@ -41,10 +67,13 @@ std::vector<Instruction*> Loader::memory_create()
             }   
             if (instruction == "PUSHIP")
             {
-                std::string param = (*begin).substr(found);
-                Instruction* num = new IPNUM(param);
+                std::string param = (*begin).substr(found + 1);
+                auto label_key = m_labels_map.find(param);
+                int ip = label_key->second;
+                
+                Instruction* label = new LABEL(ip);
                 instructions.push_back(map.find_instruction(instruction));
-                instructions.push_back(num);
+                instructions.push_back(label);
                 ++begin;
             }   
             if (instruction == "JG" ||instruction == "JLE"
@@ -61,11 +90,50 @@ std::vector<Instruction*> Loader::memory_create()
         }
         else
         {
-            instructions.push_back(map.find_instruction(*begin));
-            ++begin;
+            size_t delimiter = (*begin).find(":",0);
+            if(delimiter >= (*begin).size())
+            {
+                instructions.push_back(map.find_instruction(*begin));
+                ++begin;
+            }
+            else
+            {
+                 ++begin;
+            }
         }
     }
-    
     return instructions;
 }
+
+void Loader::insert_labels(std::string a_label)
+{
+    if(m_labels_map.find(a_label) == m_labels_map.end())
+    {
+        m_labels_map[a_label] = (-1);
+    }
+}
+
+
+void Loader::labels_to_numbers(std::string a_label, int a_ip)
+{
+     m_labels_map[a_label] = a_ip;
+}
+
+/*
+void Loader::convert_all_labels(std::vector<std::string> const& a_words)
+{
+    auto begin = a_words.begin();
+    auto end = a_words.end();
+
+    while(begin != end)
+    {
+        if (m_labels_map.find(*begin) != m_labels_map.end())
+        {
+
+            int number = m_labels_map[*begin.get_label()];
+            *begin.set_label_number(number);
+        }
+        ++begin;
+    }
+}*/
 

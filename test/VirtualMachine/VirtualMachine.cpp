@@ -98,7 +98,7 @@ catch(FileError const& a_error)
 
 int main()
 {
-    VirtualMachine my_machine(100, 100, 100,"loop");
+    VirtualMachine my_machine(100, 100, 100,"labels");
 
     my_machine.run();
 

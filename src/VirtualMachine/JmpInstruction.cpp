@@ -10,10 +10,14 @@ void JmpInstruction::execute(Bus& a_bus)
     if(is_to_adress(first, second))
     {
         a_bus.ip_next();
-       a_bus.get_Instruction(a_bus.get_ip())->execute(a_bus);
+        a_bus.get_Instruction(a_bus.get_ip())->execute(a_bus);
+        a_bus.ip_next();
 
     }
-    a_bus.ip_next();
-    a_bus.ip_next();
+    else
+    {
+        a_bus.ip_next();
+        a_bus.ip_next();
+    }
 
 }

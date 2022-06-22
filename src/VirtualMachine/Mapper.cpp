@@ -29,6 +29,9 @@
 #include "Je.hpp"
 #include "Jl.hpp"
 #include "Jle.hpp"
+#include "Jei.hpp"
+#include "Jgi.hpp"
+
 
 
 
@@ -75,6 +78,8 @@ m_map[JG::NAME] = &create_jg;
 m_map[JE::NAME] = &create_je;
 m_map[JL::NAME] = &create_jl;
 m_map[JLE::NAME] = &create_jle;
+m_map[JGI::NAME] = &create_jgi;
+m_map[JEI::NAME] = &create_jei;
 
 
 }

@@ -119,8 +119,8 @@ VirtualMachine: VirtualMachine.cpp \
  $(INC_DIR)/Dropip.hpp \
  $(SRC_DIR)/Ippush.cpp \
  $(INC_DIR)/Ippush.hpp \
- $(SRC_DIR)/Ipnum.cpp \
- $(INC_DIR)/Ipnum.hpp \
+ $(SRC_DIR)/Label.cpp \
+ $(INC_DIR)/Label.hpp \
  $(SRC_DIR)/Jg.cpp \
  $(INC_DIR)/Jg.hpp \
  $(SRC_DIR)/Je.cpp \
@@ -129,8 +129,16 @@ VirtualMachine: VirtualMachine.cpp \
  $(INC_DIR)/Jl.hpp \
  $(SRC_DIR)/Jle.cpp \
  $(INC_DIR)/Jle.hpp \
+ $(SRC_DIR)/Num.cpp \
+ $(INC_DIR)/Num.hpp \
  $(SRC_DIR)/AddrNum.cpp \
- $(INC_DIR)/AddrNum.hpp 
+ $(INC_DIR)/AddrNum.hpp \
+ $(SRC_DIR)/AddrInstruction.cpp \
+ $(INC_DIR)/AddrInstruction.hpp \
+ $(SRC_DIR)/Jgi.cpp \
+ $(INC_DIR)/Jgi.hpp \
+ $(SRC_DIR)/Jei.cpp \
+ $(INC_DIR)/Jei.hpp
  
  
 
