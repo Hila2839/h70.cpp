@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 
+#include "adress.hpp"
+
 namespace net{
 
 
@@ -13,7 +15,6 @@ class TcpClientSocket
 {
 public:
     TcpClientSocket();
-    TcpClientSocket(int a_socket);
     ~TcpClientSocket();
 
     TcpClientSocket(TcpClientSocket&& a_other);
@@ -26,9 +27,14 @@ public:
 
     std::vector<uint8_t> recieve();
     void send(std::vector<uint8_t> const& a_buffer);
-    bool bind(const char* a_ip, int a_port);
+    //void send(std::string const& a_text);
+    bool bind(Adress const& a_adress);
 
-    //int get_socket();   
+    
+private:
+    friend class TcpServerSocket;
+    TcpClientSocket(int a_socket);
+
 private:
     TcpClientSocket& operator=(TcpClientSocket const& a_other) = delete;
     TcpClientSocket(TcpClientSocket const& a_other) = delete;
@@ -38,8 +44,6 @@ private:
     friend class TcpServer;
 
     int get_socket();        
-
-
 
 private:
     int m_socket;

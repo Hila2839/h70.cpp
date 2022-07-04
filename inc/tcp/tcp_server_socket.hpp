@@ -22,10 +22,7 @@ public:
     int create_socket();
 
     TcpClientSocket* accept();
-
-
-    void bind(const char* a_ip, int a_port);
-    void listen();
+    
 
 private:
 
@@ -34,8 +31,10 @@ private:
 private:
     friend class TcpSelector;
     friend class TcpServer;
-
+    void listen();
+    void bind(const char* a_ip, int a_port);
     int get_socket();
+   
 private:
     int m_socket;
 };

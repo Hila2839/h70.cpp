@@ -1,10 +1,20 @@
+#include <list>
+
 #include "tcp_selector.hpp"
-#include "tcp_server.hpp"
+#include "tcp_client_socket.hpp"
+
 
 namespace net{
 
+TcpSelector::TcpSelector(TcpServer& a_server)
+: m_server(a_server)
+{
+}
 
-void is_activate_clients(TcpServer& a_server, fd_set* a_master, fd_set* a_temp, int activity)
+
+
+
+void TcpSelector::is_activate_clients(TcpServer& a_server, fd_set* a_master, fd_set* a_temp, int activity)
 {
     std::list<TcpClientSocket*> clients_list = a_server.get_clients();
 
@@ -29,9 +39,9 @@ void is_activate_clients(TcpServer& a_server, fd_set* a_master, fd_set* a_temp, 
 
 
 
-void TcpSelector::select(TcpServer& a_server)
+void TcpSelector::select()
 {
-    int listen_socket = a_server.get_socket();
+    int listen_socket = m_server.get_socket();
     fd_set master;
 	fd_set temp;
 
@@ -53,7 +63,7 @@ void TcpSelector::select(TcpServer& a_server)
 		{
 			if(FD_ISSET(listen_socket, &temp))
 			{
-                int new_client = a_server.add_new_client();
+                int new_client = m_server.add_new_client();
                 if(new_client >= 0)
                 {
                     FD_SET(new_client, &master);
@@ -62,7 +72,7 @@ void TcpSelector::select(TcpServer& a_server)
             }
             if(activity > 0)
             {
-				is_activate_clients(a_server, &master, &temp, activity);
+				is_activate_clients(m_server, &master, &temp, activity);
 			}
 		}	
 	}

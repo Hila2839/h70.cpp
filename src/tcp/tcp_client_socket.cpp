@@ -9,6 +9,7 @@
 
 
 #include "tcp_client_socket.hpp"
+#include "adress.hpp"
 
 
 namespace net{
@@ -26,6 +27,7 @@ TcpClientSocket::TcpClientSocket(int a_socket)
 {
     if(socket < 0)
 	{
+        std::cout << "socket initialization failed\n";
 		throw "socket not initialized";
 	}
 }
@@ -52,17 +54,21 @@ TcpClientSocket& TcpClientSocket::operator=(TcpClientSocket && a_other)
     return *this;
 }
 
-bool TcpClientSocket::bind(const char* a_ip, int a_port)
+bool TcpClientSocket::bind(Adress const& a_adress)
 {
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = inet_addr(a_ip);
-    sin.sin_port = htons(a_port);
+    sin.sin_addr.s_addr = inet_addr(a_adress.get_ip());
+    sin.sin_port = htons(a_adress.get_port());
+
+    std::cout << "connecting to server\n";
 
     int is_connected = ::connect(m_socket, (struct sockaddr*)&sin, sizeof(sin));
     if(is_connected   < 0) 
     {
+        std::cout << "connect: failed\n";
+
         close(m_socket);
         return false;
     }
