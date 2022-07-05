@@ -1,5 +1,16 @@
-
+//#include "handler.hpp"
 #include "server_handler_string.hpp"
+
+
+namespace net{
+
+
+ ServerHandlerString::ServerHandlerString()
+ {
+ }
+
+
+
 
 std::vector<uint8_t> ServerHandlerString::handle(std::vector<uint8_t> const& a_message,
     size_t a_read_bytes)
@@ -12,4 +23,6 @@ std::vector<uint8_t> ServerHandlerString::handle(std::vector<uint8_t> const& a_m
     }
 
     return upper_message;            
+}
+
 }

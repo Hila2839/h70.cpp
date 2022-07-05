@@ -10,9 +10,9 @@ namespace net{
 class Handler
 {
 public:
-    virtual ~Handler() = default;
+    virtual ~Handler();
 
-    virtual std::vector<uint8_t> handle(std::vector<uint8_t> const& a_message, size_t a_read_bytes);
+    virtual std::vector<uint8_t> handle(std::vector<uint8_t> const& a_message, size_t a_read_bytes) = 0;
 
 private:
 

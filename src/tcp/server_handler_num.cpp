@@ -1,6 +1,7 @@
 
 #include "server_handler_num.hpp"
 
+namespace net{
 
 ServerHandlerNum::ServerHandlerNum(int a_number)
 : m_number(a_number)
@@ -33,4 +34,6 @@ std::vector<uint8_t> ServerHandlerNum::handle(std::vector<uint8_t> const& a_mess
         answer.push_back('=');
     }        
     return answer;   
+}
+
 }

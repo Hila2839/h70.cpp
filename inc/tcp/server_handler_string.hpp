@@ -11,7 +11,7 @@ namespace net{
 class ServerHandlerString : public Handler
 {
 public:
-
+    ServerHandlerString();
     std::vector<uint8_t> handle(std::vector<uint8_t> const& a_message, size_t a_read_bytes);
 
 private:

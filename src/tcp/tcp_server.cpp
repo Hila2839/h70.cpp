@@ -20,9 +20,10 @@
 
 namespace net{
 
-TcpServer::TcpServer(Adress const& a_adress)
+TcpServer::TcpServer(Adress const& a_adress, Handler* a_handler)
 : m_socket()
 , m_clients()
+, m_handler(a_handler)
 {
     m_socket.bind(a_adress.get_ip(), a_adress.get_port());
     m_socket.listen();
@@ -121,9 +122,8 @@ std::list<TcpClientSocket*> TcpServer::get_clients()
 
 void TcpServer::call_back(std::vector<uint8_t> const&  a_message, int a_client_socket)
 {
-    //ServerHandlerString handl;
-    //std::vector<uint8_t> answer = handl.handle(a_message, a_message.size());
-    //send(answer);
+    std::vector<uint8_t> answer = m_handler->handle(a_message, a_message.size());
+    send(a_client_socket, answer);
 }
 
 

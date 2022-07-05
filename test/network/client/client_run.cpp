@@ -19,6 +19,7 @@ int main()
         message.push_back('e');
         message.push_back('r');
         clien.send(message);
+        clien.recieve();
 
     }catch(...)
     {}

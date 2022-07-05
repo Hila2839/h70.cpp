@@ -87,28 +87,38 @@ int TcpClientSocket::create_socket()
 
 std::vector<uint8_t> TcpClientSocket::recieve()
 {
-	std::vector<uint8_t> buffer;
+	std::vector<uint8_t> buffer(4096, 0);
 	int expectedDataLen = buffer.size();
 
 	int readBytes = recv(m_socket, buffer.data(), expectedDataLen, 0);
 
 	if(readBytes <= 0)
 	{
+        std::cout << "client recieve failed/closed socket\n";
+
 		throw "no message";
 	}
+    std::cout<<"recieved answer from server"<<readBytes<<"bytes\n";
 	//call_back(buffer);
+    for(auto c : buffer)
+	{
+		std::cout << c;
+	}
+	std::cout << '\n';
 
 	return buffer;
 }
 
 
-
 void TcpClientSocket::send(std::vector<uint8_t> const& a_buffer)
 {
     int sentBytes = ::send(m_socket, a_buffer.data(), a_buffer.size(), 0);
+    std::cout << "sentBytes: " << sentBytes << " to socket: " << m_socket << '\n';
 
 	if(sentBytes < 0)
     {
+        std::cout << "client send failed\n";
+
         throw "send failed";
     } 
 	

@@ -9,6 +9,7 @@
 //#include "tcp_selector.hpp"
 #include "selector_interface.hpp"
 #include "adress.hpp"
+#include "handler.hpp"
 
 class TcpSelector;
 
@@ -18,7 +19,7 @@ namespace net{
 class TcpServer
 {
 public:
-    TcpServer(Adress const& a_adress);
+    TcpServer(Adress const& a_adress, Handler* a_handler);
     ~TcpServer();
 
     std::string recieve(int a_socket);
@@ -43,6 +44,7 @@ private:
 private:
     TcpServerSocket m_socket;
     std::list<TcpClientSocket*> m_clients;
+    Handler* m_handler;
 };
 
 } //namespace net
