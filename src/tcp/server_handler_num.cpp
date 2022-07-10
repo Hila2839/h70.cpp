@@ -3,7 +3,7 @@
 
 namespace net{
 
-ServerHandlerNum::ServerHandlerNum(int a_number)
+ServerHandlerNum::ServerHandlerNum(uint8_t a_number)
 : m_number(a_number)
 {
 }
@@ -14,10 +14,12 @@ std::vector<uint8_t> ServerHandlerNum::handle(std::vector<uint8_t> const& a_mess
 {
     std::vector<uint8_t> answer;
 
-    if(a_read_bytes != 1)
-    {
-        return a_message;
-    }
+    //uint8_t number = static_cast<uint8_t> (m_number);
+
+    // if(a_read_bytes != 1)
+    // {
+    //     return a_message;
+    // }
 
     if(a_message[0] < m_number)
     {
@@ -32,8 +34,10 @@ std::vector<uint8_t> ServerHandlerNum::handle(std::vector<uint8_t> const& a_mess
     if(a_message[0] == m_number) 
     {
         answer.push_back('=');
+        break;
     }        
-    return answer;   
+    return answer;  
+
 }
 
 }

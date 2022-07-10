@@ -122,6 +122,7 @@ std::list<TcpClientSocket*> TcpServer::get_clients()
 
 void TcpServer::call_back(std::vector<uint8_t> const&  a_message, int a_client_socket)
 {
+
     std::vector<uint8_t> answer = m_handler->handle(a_message, a_message.size());
     send(a_client_socket, answer);
 }
