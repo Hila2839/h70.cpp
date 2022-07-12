@@ -61,53 +61,65 @@
 //     }
 // }
 
-// void create_producers(SafeQueue<int, 3000>& a_q, size_t a_threads_number, 
-// std::vector<std::thread>& a_threads)
-// {
-//     int total_counter = 0;
-//     auto producer = [&a_q, &total_counter](int a_threads_number)
-//     {
-//         for (int i = 0; i < 50; i++)
-//         {
-//             int vec = {a_threads_number, total_counter++, i};
-//             a_q.enqueue(vec);
-//         }
-//     };
-//     while(a_threads_number --> 0)
-//     {
-//         a_threads.push_back(std::thread(producer, a_threads_number));	
-//     }
-// }
+void create_producers(SafeQueue<std::vector<int>, 3000>& a_q, size_t a_threads_number, 
+std::vector<std::thread>& a_threads, int a_pushes_num)
+{
+    std::mutex mtx;
+    int total_counter = 0;
+    auto producer = [&a_q, &total_counter, &mtx](int a_threads_number, int a_pushes_num)
+    {
+        for (int i = 0; i < a_pushes_num; i++)
+        {
+            std::vector<int> vec = {a_threads_number, total_counter, i};
+            a_q.enqueue(vec);
+            mtx.lock();
+            ++total_counter;
+             mtx.unlock();
+        }
+    };
+    while(a_threads_number --> 0)
+    {
+        int num_of_thread = a_threads_number;
+        a_threads.push_back(std::thread(producer, num_of_thread, a_pushes_num));	
+    }
+}
 
 
-// std::vector<std::vector<int>> create_consumers(SafeQueue<int, 3000>& a_q, size_t a_threads_number,
-//                      std::vector<std::thread>& a_threads, size_t a_producers_num)
-// {
-//     std::vector<std::vector<int>> all_poped(a_threads_number);
-//     auto consumer = [&a_q](std::vector<std::vector<int>> a_all, size_t a_producers_num)
-//     {
-//         std::vector<int> my_poped;
-//         size_t poisen_apples = a_producers_num;
-//         while( poisen_apples > 0)
-//         {
-//             int poped;
-//             a_q.dequeue(poped);
-//             my_poped.push_back(poped);
-//             if(poped == (-1))
-// 		    {
-//                 break;
-// 		    }
-//             //if poped == poisen apple--
-//         }
-//         a_all.push_back(my_poped);
-//     };
+std::vector<std::vector<std::vector<int>>> create_consumers(SafeQueue<std::vector<int>, 3000>& a_q, size_t a_threads_number,
+                     std::vector<std::thread>& a_threads)
+{
+    std::vector<std::vector<std::vector<int>>> all_poped(a_threads_number);
+    auto consumer = [&a_q](std::vector<std::vector<std::vector<int>>>& a_all)
+    {
+        std::vector<std::vector<int>> my_poped;
+        int last = 0;
+        while(true)
+        {
+            std::vector<int> poped;
+            a_q.dequeue(poped);
+            my_poped.push_back(poped);
 
-//    for (size_t i = 0; i < a_threads_number; i++)
-//    {
-//         a_threads.push_back(std::thread(consumer, std::ref(all_poped), a_producers_num));	
-//    }
-//    return all_poped;
-// }
+            if (poped[1] < last)
+            {
+                std::cout<<"wrong out order\n";
+                break;
+            }
+            last = poped[1];
+            
+            if(poped[1] == -1)
+		    {
+                break;
+		    }
+        }
+        a_all.push_back(my_poped);
+    };
+
+   for (size_t i = 0; i < a_threads_number; i++)
+   {
+        a_threads.push_back(std::thread(consumer, std::ref(all_poped)));	
+   }
+   return all_poped;
+}
 
 
 
@@ -128,7 +140,7 @@
 //     }
 // }
 
-// bool check_fifo(all_poped)
+// bool check_all(std::vector<std::vector<std::vector<int>>> a_all)
 // {
 //     for (auto& vector_of_vectors : all_poped)
 // 	{
@@ -141,56 +153,84 @@
 // }
 
 
-// void give_apples(SafeQueue<int, 3000>& a_q, std::vector<std::thread>& a_threads)
-// {
-//     for(size_t i = 0; i < a_threads.size(); ++i)
-//     {
-//         int poisen = -1;
-//         a_q.enqueue(poisen);
-//     }
-// }
+void give_apples(SafeQueue<std::vector<int>, 3000>& a_q, std::vector<std::thread>& a_threads)
+{
+    for(size_t i = 0; i < a_threads.size(); ++i)
+    {
+        std::vector<int> poisen = {-1, -1};
+        a_q.enqueue(poisen);
+    }
+}
 
 
 
-// void join_producers(std::vector<std::thread>& a_threads)
-// {
-//     for (auto& t :  a_threads)
-// 	{
-// 		t.join();
-// 	}
-// }
+void join_producers(std::vector<std::thread>& a_threads)
+{
+    for (auto& t :  a_threads)
+	{
+		t.join();
+	}
+}
 
-// void join_consumers(std::vector<std::thread>& a_threads)
-// {
-//     for (auto& t :  a_threads)
-// 	{
-// 		t.join();
-// 	}
-// }
-
-
+void join_consumers(std::vector<std::thread>& a_threads)
+{
+    for (auto& t :  a_threads)
+	{
+		t.join();
+	}
+}
 
 
 
+
+BEGIN_TEST(fifo)	
+
+    std::cout<<"fifo check\n";
+
+    SafeQueue<std::vector<int>, 3000> my_q;
+
+
+    std::vector<std::thread> p_threads;
+    std::vector<std::thread> c_threads;
+
+
+    create_producers(my_q,100, p_threads, 100);
+
+    std::vector<std::vector<std::vector<int>>> all = create_consumers(my_q, 100, c_threads);
+
+    join_producers(p_threads);
+
+    give_apples(my_q, c_threads);
+
+    join_consumers(c_threads);
+
+    std::cout<<"q size:"<<my_q.size()<<'\n';
+
+
+    ASSERT_THAT(my_q.size() == 0);
+
+
+END_TEST
 
 
 BEGIN_TEST(one_consumer_one_producer)	
 
     std::cout<<"one consumer one producer\n";
 
-    SafeQueue<int, 3000> my_q;
+    SafeQueue<std::vector<int>, 3000> my_q;
 
  auto push_safe = [&my_q](size_t a_number)
     {
+        std::vector<int> vec = {1,1,1};
         while(a_number-->0)
         {
-            my_q.enqueue(a_number);
+            my_q.enqueue(vec);
         }
     };
 
     auto pop_safe = [&my_q](size_t a_number)
     {
-        int poped;
+        std::vector<int> poped;
         while(a_number-->0)
         {
             my_q.dequeue(poped);
@@ -221,19 +261,20 @@ BEGIN_TEST(two_consumers_one_producer)
 
     std::cout<<"one consumer one producer\n";
 
-    SafeQueue<int, 3000> my_q;
+    SafeQueue<std::vector<int>, 3000> my_q;
 
  auto push_safe = [&my_q](size_t a_number)
     {
+        std::vector<int> vec = {1,1,1};
         while(a_number-->0)
         {
-            my_q.enqueue(a_number);
+            my_q.enqueue(vec);
         }
     };
 
     auto pop_safe = [&my_q](size_t a_number)
     {
-        int poped;
+        std::vector<int> poped;
         while(a_number-->0)
         {
             my_q.dequeue(poped);
@@ -263,19 +304,20 @@ BEGIN_TEST(one_consumers_two_producer)
 
     std::cout<<"one consumer one producer\n";
 
-    SafeQueue<int, 3000> my_q;
+    SafeQueue<std::vector<int>, 3000> my_q;
 
  auto push_safe = [&my_q](size_t a_number)
     {
+        std::vector<int> vec = {1,1,1};
         while(a_number-->0)
         {
-            my_q.enqueue(a_number);
+            my_q.enqueue(vec);
         }
     };
 
     auto pop_safe = [&my_q](size_t a_number)
     {
-        int poped;
+        std::vector<int> poped;
         while(a_number-->0)
         {
             my_q.dequeue(poped);
@@ -305,19 +347,20 @@ BEGIN_TEST(multi)
 
     std::cout<<"one consumer one producer\n";
 
-    SafeQueue<int, 3000> my_q;
+    SafeQueue<std::vector<int>, 3000> my_q;
 
  auto push_safe = [&my_q](size_t a_number)
     {
+        std::vector<int> vec = {1,1,1};
         while(a_number-->0)
         {
-            my_q.enqueue(a_number);
+            my_q.enqueue(vec);
         }
     };
 
     auto pop_safe = [&my_q](size_t a_number)
     {
-        int poped;
+        std::vector<int> poped;
         while(a_number-->0)
         {
             my_q.dequeue(poped);
@@ -361,6 +404,7 @@ BEGIN_SUITE(Its what you learn after you know it all that counts)
         TEST(two_consumers_one_producer)	
         TEST(one_consumers_two_producer)
         TEST(multi)	
+        TEST(fifo)	
         
 
 END_SUITE

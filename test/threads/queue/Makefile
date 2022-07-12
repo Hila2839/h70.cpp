@@ -15,8 +15,8 @@ CXXFLAGS+= -g3
 LDFLAGS =
 LDLIBS =
 
-INC_DIR = ../../../inc
-SRC_DIR = ../../../src
+INC_DIR = ../../../inc/queue
+SRC_DIR = ../../../src/queue
 
 TARGET = safe_q
 OBJS = safe_q.o \
@@ -34,6 +34,8 @@ safe_q: safe_q.cpp \
 $(INC_DIR)/safe_q.hpp \
 $(INC_DIR)/semaphore.hpp \
 $(SRC_DIR)/semaphore.cpp \
+$(INC_DIR)/error.hpp \
+$(SRC_DIR)/error.cpp \
 
 
 
