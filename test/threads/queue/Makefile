@@ -8,7 +8,7 @@ CFLAGS = -g3
 # c++ language
 CXXFLAGS = -std=c++20
 CXXFLAGS+= -Wall -pedantic -pthread
-CXXFLAGS+= -Werror
+#CXXFLAGS+= -Werror
 CXXFLAGS+= -g3
 
 
@@ -32,6 +32,8 @@ check: $(TARGET)
 
 safe_q: safe_q.cpp \
 $(INC_DIR)/safe_q.hpp \
+$(INC_DIR)/semaphore.hpp \
+$(SRC_DIR)/semaphore.cpp \
 
 
 
