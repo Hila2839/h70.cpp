@@ -29,7 +29,7 @@ public:
 
     std::list<TcpClientSocket*> get_clients();
 
-    void call_back(std::vector<uint8_t> const&  a_message, int a_client_socket);
+    void call_back(std::vector<uint8_t> const&  a_message, TcpClientSocket* a_client_socket);
 
 
    
@@ -37,7 +37,7 @@ private:
     friend class TcpSelector;
     int add_new_client();
     void remove_client(std::list<TcpClientSocket*>::iterator a_it);
-    bool check_exsist_client(int a_client_socket);
+    bool check_exsist_client(TcpClientSocket* a_client_socket);
     int get_socket();
 
 

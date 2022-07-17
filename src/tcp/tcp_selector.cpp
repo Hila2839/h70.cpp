@@ -23,13 +23,14 @@ void TcpSelector::is_activate_clients(TcpServer& a_server, fd_set* a_master, fd_
 
     while(begin != end && activity > 0)
     {
-        int client_socket = (*begin)->get_socket();
-        if(FD_ISSET(client_socket, a_temp))
+        TcpClientSocket* client_socket = (*begin);//->get_socket()
+        int client_socket_num = (*begin)->get_socket();
+        if(FD_ISSET(client_socket_num, a_temp))
         {
             if(!a_server.check_exsist_client(client_socket))
             {
                 a_server.remove_client(begin);
-                FD_CLR(client_socket, a_master);
+                FD_CLR(client_socket_num, a_master);
             }
             --activity;
         }

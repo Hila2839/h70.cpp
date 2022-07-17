@@ -25,7 +25,7 @@ TcpClientSocket::TcpClientSocket()
 TcpClientSocket::TcpClientSocket(int a_socket)
 :m_socket(a_socket)
 {
-    if(socket < 0)
+    if(a_socket < 0)
 	{
         std::cout << "socket initialization failed\n";
 		throw "socket not initialized";

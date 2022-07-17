@@ -42,6 +42,8 @@ private:
 private:
     friend class TcpSelector;
     friend class TcpServer;
+    friend class Work;
+    friend class Processor;
 
     int get_socket();        
 

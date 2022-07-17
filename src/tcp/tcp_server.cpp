@@ -14,6 +14,7 @@
 #include "tcp_selector.hpp"
 #include "handler.hpp"
 #include "server_handler_string.hpp"
+#include "tcp_client_socket.hpp"
 
 #include "adress.hpp"
 
@@ -67,14 +68,15 @@ void TcpServer::remove_client(std::list<TcpClientSocket*>::iterator a_it)
 }
 
 
-bool TcpServer::check_exsist_client(int a_client_socket)
+bool TcpServer::check_exsist_client(TcpClientSocket* a_client_socket)
 {   	
     std::cout << "\nchecking for new messages...\n";
 
 	std::vector<uint8_t> buffer(4096, 0);
 	int expectedDataLen = buffer.size();
 
-	int readBytes = recv(a_client_socket, buffer.data(), expectedDataLen, 0);
+    int client_socket_num = a_client_socket -> get_socket();
+	int readBytes = recv(client_socket_num, buffer.data(), expectedDataLen, 0);
     std::cout << "\nreadBytes: " << readBytes << '\n';
 
 	if(readBytes <= 0)
@@ -120,11 +122,9 @@ std::list<TcpClientSocket*> TcpServer::get_clients()
 }
 
 
-void TcpServer::call_back(std::vector<uint8_t> const&  a_message, int a_client_socket)
+void TcpServer::call_back(std::vector<uint8_t> const&  a_message, TcpClientSocket* a_client_socket)
 {
-
-    std::vector<uint8_t> answer = m_handler->handle(a_message, a_message.size());
-    send(a_client_socket, answer);
+    m_handler->handle(a_message, a_message.size(), a_client_socket);
 }
 
 
