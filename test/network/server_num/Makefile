@@ -46,7 +46,6 @@ $(SRC_DIR)/adress.cpp \
 $(INC_DIR)/adress.hpp \
 $(SRC_DIR)/handler.cpp \
 $(INC_DIR)/handler.hpp \
-$(SRC_DIR)/work.cpp \
 $(INC_DIR)/work.hpp \
 $(INC_DIR2)/safe_q.hpp \
 $(INC_DIR2)/semaphore.hpp \

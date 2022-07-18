@@ -21,10 +21,14 @@ int main()
         message.push_back(x);
        
         clien.send(message);
-        clien.recieve();
+        std::vector<uint8_t> answer= clien.recieve();
+        std::cout<<static_cast<unsigned int>(answer[0]);
+        std::cout<<'\n';
+        
+
 
     }catch(...)
-    {}
+    {return 0;}
 
 
 return 0;

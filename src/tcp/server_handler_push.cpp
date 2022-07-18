@@ -13,7 +13,10 @@ ServerHandlerPush::ServerHandlerPush(SafeQueue<Work, 1000>& a_queue)
 
 void ServerHandlerPush::handle(std::vector<uint8_t> const& a_message, size_t a_read_bytes, TcpClientSocket* a_client_socket)
 {
-    m_queue.enqueue(Work(a_client_socket, a_message));
+    Work client;
+    client.m_client_socket_p = a_client_socket;
+    client.m_message =  a_message;
+    m_queue.enqueue(client);
     std::cout<<"in queue:"<<m_queue.size()<<'\n';
 }
 

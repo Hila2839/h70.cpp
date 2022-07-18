@@ -69,10 +69,10 @@ void Processor::send(int a_client_socket, std::vector<uint8_t> const&  a_data)
 void Processor::process()
 {
     std::vector<uint8_t> message;
-    message = m_client.get_massage();
+    message = m_client.m_message;
     std::vector<uint8_t>  answer = parcer(message);
     
-    int socket = m_client.get_socket();
-    this->send(socket, answer);
+    //int socket = m_client.m_client_socket_p->get_socket();
+    m_client.m_client_socket_p->send(answer);
 
 }

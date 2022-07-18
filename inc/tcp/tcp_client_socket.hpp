@@ -42,7 +42,7 @@ private:
 private:
     friend class TcpSelector;
     friend class TcpServer;
-    friend class Work;
+    friend struct Work;
     friend class Processor;
 
     int get_socket();        
